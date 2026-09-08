@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Gestão · Colher d’Pau</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="admin-wrap shell">
+  <div class="admin-head">
+    <div>
+      <div class="eyebrow">Backoffice local</div>
+      <h1>Gestão da carta</h1>
+    </div>
+    <div class="admin-actions">
+      <a class="btn light" href="index.html">Ver site</a>
+      <button class="btn light" id="reset">Repor original</button>
+      <button class="btn gold" id="export">Exportar data.js</button>
+      <button class="btn primary" id="save">Guardar neste navegador</button>
+    </div>
+  </div>
+
+  <div class="admin-note">
+    <strong>Como funciona:</strong>
+    clique numa linha para editar. A ficha abre numa janela sobre a tabela.
+    As linhas alteradas ficam destacadas até exportar/repor os dados.
+  </div>
+
+  <div class="admin-tabs">
+    <button class="admin-tab active" data-type="food">Comida</button>
+    <button class="admin-tab" data-type="beverages">Bebidas</button>
+<button class="admin-tab" data-type="chef">Sugestão do Chefe</button>
+  </div>
+
+  
+<div class="chef-admin-settings" id="chefAdminSettings" hidden>
+  <div class="chef-admin-box">
+    <label><input type="checkbox" id="chefEnabled"> Mostrar “Sugestão do Chefe” na carta</label>
+    <label>Válido até <input type="date" id="chefValidUntil"></label>
+    <button class="btn light" id="addChefItem">+ Adicionar sugestão</button>
+  </div>
+</div>
+
+<div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead id="tableHead"></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="editorModal" aria-hidden="true">
+  <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-header">
+      <div>
+        <div class="eyebrow">Editor</div>
+        <h2 id="modalTitle">Editar item</h2>
+      </div>
+      <button class="modal-close" id="closeModal" aria-label="Fechar">×</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="grid">
+        <div class="field">
+          <label>ID</label>
+          <input id="code">
+        </div>
+
+        <div class="field">
+          <label>Categoria</label>
+          <select id="category"></select>
+        </div>
+
+        <div class="field full">
+          <label>Nome apresentado ao cliente (PT)</label>
+          <input id="name_pt">
+        </div>
+
+        <div class="field full" id="descriptionField">
+          <label>Descrição breve (PT)</label>
+          <textarea id="desc_pt"></textarea>
+        </div>
+
+        <div class="field">
+          <label>Preço (€)</label>
+          <input id="price" type="number" step=".01">
+        </div>
+
+        <div class="field" id="glassField">
+          <label>Preço copo (€)</label>
+          <input id="glass" type="number" step=".01">
+        </div>
+
+        <div class="field" id="regionField">
+          <label>Região</label>
+          <input id="region">
+        </div>
+
+        <div class="field">
+          <label>Fotografia (caminho ou URL)</label>
+          <input id="image">
+        </div>
+
+        <div class="field full">
+          <label>Pré-visualização</label>
+          <img id="preview" class="preview" alt="">
+        </div>
+
+        <div class="field" id="allergensField">
+          <label>Alergénios (separados por vírgula)</label>
+          <input id="allergens" placeholder="glúten, leite, ovos">
+        </div>
+
+        <div class="field" id="tagsField">
+          <label>Etiquetas</label>
+          <input id="tags" placeholder="vegetariano, picante, sem glúten">
+        </div>
+
+        <div class="field" id="featuredField">
+          <label><input type="checkbox" id="featured"> Item em destaque</label>
+        </div>
+
+        <div class="field">
+          <label><input type="checkbox" id="available"> Disponível na carta</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn light" id="cancelModal">Cancelar</button>
+      <button class="btn primary" id="apply">Aplicar alterações</button>
+    </div>
+  </section>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+COLHER D'PAU WEBSITE V3
+
+TESTAR
+1. Extraia o ZIP inteiro.
+2. Abra index.html.
+3. Escolha uma bandeira para abrir a carta no respetivo idioma.
+4. Abra admin.html para gerir os pratos.
+
+LOGÓTIPO
+- Coloque o logótipo real em assets/logo.png.
+- Se não existir, é usado automaticamente logo-fallback.svg.
+
+FOTO DO RESTAURANTE
+- Coloque uma fotografia horizontal em assets/restaurant-hero.jpg.
+- Recomendado: 1600x900 ou superior.
+- Sem essa imagem, é usado restaurant-hero-fallback.svg.
+
+FOTOS DOS PRATOS
+- Pode usar assets/dishes/001.jpg, 002.jpg, etc.
+- Ou alterar o caminho/URL no admin.html.
+
+BACKOFFICE
+- Edite ID, categoria, nome, descrição, preço, fotografia, alergénios, etiquetas, destaque e disponibilidade.
+- Guardar neste navegador: permite testar imediatamente no mesmo browser.
+- Exportar data.js: gera os dados atualizados; substitua js/data.js no projeto para publicar.
+
+SUGESTÕES DE CAMPOS JÁ PREPARADOS
+- alergénios
+- etiquetas (vegetariano, picante, etc.)
+- disponível/indisponível
+- destaque
+- fotografia
+
+PUBLICAÇÃO
+- O site continua estático e compatível com Cloudflare Pages/GitHub Pages.
+- Para o backoffice gravar diretamente no site online, depois podemos ligar Supabase/Firebase/Cloudflare D1.
+
+
+NOVIDADES V4 - ADMIN
+- Ao clicar numa linha, o editor abre num popup/modal.
+- Linhas alteradas ficam destacadas a amarelo/dourado.
+- Categoria passou a ser uma combobox.
+- Existe separação Comida / Bebidas no backoffice.
+- Vinhos estão subdivididos em:
+  * Vinhos · Brancos · Verdes
+  * Vinhos · Brancos · Maduros
+  * Vinhos · Tintos · Verdes
+  * Vinhos · Tintos · Maduros
+  * Vinhos · Rosé
+- O editor de bebidas mostra Região, preço de Garrafa e preço de Copo.
+
+
+NOVIDADES V5
+- Fotografia real do restaurante aplicada ao cabeçalho.
+- Logótipo real extraído da imagem fornecida e guardado em assets/logo.png.
+- Fotografia real da Tábua à Colher d'Pau aplicada ao item 014.
+- Fotografias dos pratos podem ser clicadas para abrir em grande.
+- O lightbox fecha pelo X, por clique fora da imagem ou pela tecla ESC.
+
+
+NOVIDADES V8 - SUGESTÃO DO CHEFE
+- Nova secção em destaque antes da carta normal.
+- Conteúdo inicial baseado na primeira página do menu físico:
+  * Entrada — Papas de sarrabulho — 6,00 €
+  * Peixe — Bacalhau lascado c/ broa e grelos — 14,00 €
+  * Carne — Picanha c/ broa — 15,00 €
+- Novo separador “Sugestão do Chefe” no admin.
+- Pode ativar/desativar a secção completa.
+- Pode definir uma data “Válido até”.
+- Pode adicionar novas sugestões.
+- Cada sugestão suporta ID, tipo, nome, descrição, preço, fotografia e disponibilidade.
+
+
+NOVIDADES V17
+- A secção Sugestão do Chefe usa agora o background final aprovado:
+  assets/chef-background.jpg
+- As imagens dos três pratos foram retiradas diretamente do tríptico aprovado,
+  sem recriação nem alteração de contraste:
+  assets/chef/papas-sarrabulho.jpg
+  assets/chef/bacalhau-broa-grelos.jpg
+  assets/chef/picanha-broa.jpg
+- As plantas decorativas fazem parte do próprio background; os SVG artificiais deixaram de ser usados.
+
+V21:
+- Sem relevo central na Sugestão do Chefe.
+- Título centrado.
+- Removido "Sabores que contam histórias".
+- Traduções mantêm a mesma hierarquia tipográfica.
+- Novo logótipo aplicado.
+
+
+V22:
+- Adicionado CTA na home page para deixar avaliação no Tripadvisor.
+- Adicionado link no canto direito do rodapé do menu para deixar avaliação no Tripadvisor.
+- Removido o link público para Gestão do menu / admin.html.

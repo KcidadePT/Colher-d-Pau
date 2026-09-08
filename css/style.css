@@ -1,0 +1,1990 @@
+
+:root{--bg:#f3ede4;--paper:#fffaf4;--ink:#181410;--muted:#766d63;--dark:#120f0c;--gold:#c89c52;--line:#dfd5c6}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}.shell{width:min(1120px,calc(100% - 30px));margin:auto}a{color:inherit}
+.landing-hero{min-height:100vh;color:#fff;background:linear-gradient(90deg,rgba(10,8,6,.86),rgba(10,8,6,.48)),url('../assets/restaurant-hero.jpg'),url('../assets/restaurant-hero-fallback.svg');background-position:center;background-size:cover;display:flex;flex-direction:column}
+.top{display:flex;justify-content:space-between;align-items:center;padding:22px 0}.logo{height:64px;max-width:270px;object-fit:contain}.socials{display:flex;gap:10px}.socials a{border:1px solid rgba(255,255,255,.24);padding:8px 12px;border-radius:999px;text-decoration:none;font-size:13px}
+.hero-inner{flex:1;display:flex;align-items:center}.hero-copy{max-width:820px;padding:80px 0 120px}.eyebrow{letter-spacing:.17em;text-transform:uppercase;color:var(--gold);font-weight:800;font-size:12px}.hero-copy h1{font:600 clamp(52px,8vw,94px)/.98 Georgia,serif;margin:16px 0}.hero-copy p{font-size:19px;color:#e1dad1;max-width:600px}
+.lang-grid{display:grid;grid-template-columns:repeat(7,minmax(110px,1fr));gap:10px;margin-top:36px}.flag-card{background:rgba(255,255,255,.09);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:16px 10px;text-decoration:none;text-align:center;transition:.2s}.flag-card:hover{transform:translateY(-3px);background:rgba(255,255,255,.14)}.flag{font-size:32px;display:block;margin-bottom:7px}.flag-card small{color:#ddd2c4}
+.menu-hero{height:320px;color:#fff;background:linear-gradient(90deg,rgba(8,7,6,.84),rgba(8,7,6,.45)),url('../assets/restaurant-hero.jpg'),url('../assets/restaurant-hero-fallback.svg');background-position:center;background-size:cover}.menu-top{display:flex;align-items:center;justify-content:space-between;padding:20px 0}.menu-top .logo{height:52px}.back{border:1px solid rgba(255,255,255,.24);border-radius:999px;padding:9px 13px;text-decoration:none}.menu-title{padding-top:62px}.menu-title h1{font:600 clamp(40px,6vw,64px)/1 Georgia,serif;margin:10px 0}.menu-title p{color:#dfd8cf}
+.type-switch{display:flex;gap:8px;padding:28px 0 12px}.type-switch button,.cat-btn{border:1px solid var(--line);background:#fffaf4;border-radius:999px;padding:10px 15px;cursor:pointer}.type-switch button.active,.cat-btn.active{background:var(--dark);color:white;border-color:var(--dark)}.category-strip{display:flex;gap:8px;overflow:auto;padding:6px 0 20px;scrollbar-width:none}
+.menu-content{display:grid;gap:28px;padding-bottom:70px}.section{background:var(--paper);border:1px solid #e7ded0;border-radius:22px;overflow:hidden}.section h2{font:600 29px Georgia,serif;margin:0;padding:20px 22px;border-bottom:1px solid var(--line)}
+.dish{display:grid;grid-template-columns:118px 1fr auto;gap:16px;padding:18px 22px;border-bottom:1px solid #eadfd1;align-items:center}.dish:last-child{border-bottom:0}.dish img{width:118px;height:88px;object-fit:cover;border-radius:14px;background:#e8dfd2}.dish h3{margin:0 0 5px;font-size:17px}.dish p{margin:0;color:var(--muted);font-size:14px}.price{font-weight:900;white-space:nowrap}.badge{display:inline-block;margin-top:8px;margin-right:5px;padding:4px 7px;border-radius:999px;background:#efe3cf;color:#765622;font-size:11px;font-weight:700}
+footer{background:var(--dark);color:white;padding:26px 0}.footer-row{display:flex;justify-content:space-between;gap:20px;align-items:center}.footer-row a{color:#d8bd8c}
+.admin-wrap{padding:28px 0 80px}.admin-head{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}.admin-actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:0;border-radius:10px;padding:10px 13px;cursor:pointer;font-weight:700;text-decoration:none}.btn.primary{background:var(--dark);color:white}.btn.gold{background:var(--gold);color:#1b140a}.btn.light{background:white;border:1px solid var(--line)}.admin-note{background:#fff7e8;border:1px solid #ead4ac;padding:14px 16px;border-radius:14px;margin:18px 0;color:#5c4a2e}.admin-table{width:100%;border-collapse:collapse;background:white;border-radius:15px;overflow:hidden}.admin-table th,.admin-table td{padding:11px;border-bottom:1px solid #eee4d7;text-align:left;font-size:13px}.admin-table th{background:#1c1814;color:white}.admin-table tr{cursor:pointer}.admin-table tr:hover{background:#faf4ec}.editor{margin-top:26px;background:white;border:1px solid var(--line);border-radius:18px;padding:20px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:800;color:#675d53}.field input,.field textarea{padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:#fff}.field textarea{min-height:90px;resize:vertical}.preview{width:180px;height:130px;object-fit:cover;border-radius:14px;background:#eee}.tiny{font-size:12px;color:var(--muted)}
+@media(max-width:900px){.lang-grid{grid-template-columns:repeat(4,1fr)}}@media(max-width:700px){.lang-grid{grid-template-columns:repeat(2,1fr)}.socials{display:none}.dish{grid-template-columns:84px 1fr}.dish img{width:84px;height:74px}.price{grid-column:2}.grid{grid-template-columns:1fr}.field.full{grid-column:auto}.admin-table th:nth-child(3),.admin-table td:nth-child(3){display:none}.footer-row{align-items:flex-start;flex-direction:column}}
+
+
+/* ---- Admin V4 ---- */
+.admin-tabs{display:flex;gap:8px;margin:20px 0 12px}
+.admin-tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 16px;font-weight:800;cursor:pointer}
+.admin-tab.active{background:var(--dark);color:#fff;border-color:var(--dark)}
+.admin-table-wrap{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:auto;box-shadow:0 10px 28px rgba(45,35,25,.05)}
+.admin-table{border-radius:0}
+.admin-table tbody tr{transition:background-color .18s ease,box-shadow .18s ease}
+.admin-table tbody tr:hover{background:#f8f1e8}
+.admin-table tbody tr.edited-row{background:#fff0c9}
+.admin-table tbody tr.edited-row:hover{background:#ffe8ae}
+.admin-table tbody tr.edited-row td:first-child{box-shadow:inset 4px 0 0 var(--gold)}
+
+.modal-open{overflow:hidden}
+.modal-backdrop{
+  position:fixed;inset:0;background:rgba(16,12,9,.62);
+  display:none;align-items:center;justify-content:center;
+  z-index:1000;padding:22px;backdrop-filter:blur(4px)
+}
+.modal-backdrop.open{display:flex}
+.modal-card{
+  width:min(980px,100%);max-height:min(88vh,900px);
+  background:#fff;border-radius:22px;box-shadow:0 30px 90px rgba(0,0,0,.28);
+  display:flex;flex-direction:column;overflow:hidden
+}
+.modal-header{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  padding:22px 24px 16px;border-bottom:1px solid var(--line)
+}
+.modal-header h2{margin:4px 0 0;font:600 30px Georgia,serif}
+.modal-close{
+  width:38px;height:38px;border:0;border-radius:50%;
+  background:#f1ebe3;font-size:26px;line-height:1;cursor:pointer
+}
+.modal-body{padding:22px 24px;overflow:auto}
+.modal-footer{
+  display:flex;justify-content:flex-end;gap:10px;
+  padding:16px 24px;border-top:1px solid var(--line);background:#fbf7f1
+}
+.field select{
+  padding:11px 12px;border:1px solid var(--line);
+  border-radius:10px;background:#fff
+}
+@media(max-width:700px){
+  .modal-backdrop{padding:8px;align-items:flex-end}
+  .modal-card{max-height:95vh;border-radius:18px 18px 0 0}
+  .modal-body{padding:16px}
+  .modal-header,.modal-footer{padding-left:16px;padding-right:16px}
+}
+
+
+/* ---- V5: identidade visual e galeria ---- */
+.restaurant-logo{
+  height:76px;
+  width:auto;
+  max-width:300px;
+  object-fit:contain;
+  border-radius:14px;
+  filter:drop-shadow(0 8px 20px rgba(0,0,0,.22));
+}
+.landing-hero,
+.menu-hero{
+  background-position:center 46%;
+}
+.landing-hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,rgba(9,7,5,.86) 0%,rgba(9,7,5,.62) 44%,rgba(9,7,5,.26) 100%);
+  pointer-events:none;
+}
+.landing-hero{position:relative}
+.landing-hero .top,
+.landing-hero .hero-inner{position:relative;z-index:1}
+
+.dish-image{
+  cursor:zoom-in;
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.dish-image:hover{
+  transform:scale(1.025);
+  box-shadow:0 10px 24px rgba(28,20,12,.16);
+}
+
+.image-lightbox{
+  position:fixed;
+  inset:0;
+  z-index:2000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:28px;
+  background:rgba(8,6,5,.90);
+  backdrop-filter:blur(5px);
+}
+.image-lightbox.open{display:flex;flex-direction:column}
+.image-lightbox img{
+  max-width:min(1100px,94vw);
+  max-height:82vh;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  border-radius:18px;
+  box-shadow:0 30px 90px rgba(0,0,0,.45);
+}
+.lightbox-caption{
+  color:#fff;
+  margin-top:14px;
+  font:600 18px Georgia,serif;
+  text-align:center;
+}
+.lightbox-close{
+  position:fixed;
+  top:18px;
+  right:22px;
+  width:46px;
+  height:46px;
+  border:1px solid rgba(255,255,255,.24);
+  border-radius:50%;
+  background:rgba(255,255,255,.10);
+  color:#fff;
+  font-size:30px;
+  line-height:1;
+  cursor:pointer;
+}
+@media(max-width:700px){
+  .restaurant-logo{height:58px;max-width:220px}
+  .image-lightbox{padding:12px}
+  .image-lightbox img{max-width:96vw;max-height:78vh;border-radius:12px}
+}
+
+
+/* V6 - seletor de idiomas no menu */
+.menu-language-flags{
+  position:fixed;top:18px;right:22px;z-index:900;
+  display:flex;align-items:center;gap:5px;padding:7px 9px;
+  border:1px solid rgba(255,255,255,.18);border-radius:999px;
+  background:rgba(17,13,9,.76);box-shadow:0 8px 28px rgba(0,0,0,.18);
+  backdrop-filter:blur(10px);
+}
+.menu-language-flags a{
+  display:flex;width:35px;height:35px;align-items:center;justify-content:center;
+  border-radius:50%;text-decoration:none;font-size:23px;line-height:1;
+  transition:transform .15s ease,background-color .15s ease,box-shadow .15s ease;
+}
+.menu-language-flags a:hover{transform:translateY(-2px) scale(1.08);background:rgba(255,255,255,.12)}
+.menu-language-flags a.active{
+  background:rgba(205,157,82,.28);
+  box-shadow:inset 0 0 0 2px #d2a052;
+}
+@media(max-width:700px){
+  .menu-language-flags{
+    top:auto;bottom:12px;left:50%;right:auto;transform:translateX(-50%);
+    gap:2px;padding:5px 7px;max-width:96vw;
+  }
+  .menu-language-flags a{width:36px;height:36px;font-size:22px}
+}
+
+/* V7 - bandeiras reais em SVG */
+.flag-card .flag-img{
+  width:44px;
+  height:30px;
+  object-fit:cover;
+  border-radius:5px;
+  display:block;
+  margin:0 auto 10px;
+  box-shadow:0 2px 8px rgba(0,0,0,.28);
+}
+.menu-flag-img{
+  width:26px;
+  height:18px;
+  object-fit:cover;
+  border-radius:3px;
+  box-shadow:0 1px 4px rgba(0,0,0,.25);
+}
+.menu-language-flags a{
+  padding:0;
+}
+@media(max-width:700px){
+  .flag-card .flag-img{width:40px;height:27px}
+  .menu-flag-img{width:25px;height:17px}
+}
+
+
+/* V8 - Sugestão do Chefe */
+.chef-suggestion{margin:34px auto 42px}
+.chef-suggestion-head{
+  display:flex;justify-content:space-between;align-items:end;gap:20px;
+  margin-bottom:18px;padding:0 2px
+}
+.chef-suggestion-head h2{
+  font:600 clamp(34px,5vw,52px)/1.05 Georgia,serif;
+  margin:7px 0 6px
+}
+.chef-suggestion-head p{margin:0;color:var(--muted)}
+.chef-validity{
+  background:#ead9b8;color:#674819;border-radius:999px;
+  padding:8px 12px;font-size:12px;font-weight:800
+}
+.chef-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:16px
+}
+.chef-card{
+  background:linear-gradient(180deg,#1b1713,#12100d);
+  color:#fff;border-radius:22px;overflow:hidden;
+  box-shadow:0 14px 34px rgba(30,22,14,.15);
+  border:1px solid rgba(196,154,82,.24)
+}
+.chef-image{
+  width:100%;height:190px;object-fit:cover;display:block;cursor:zoom-in
+}
+.chef-card-body{padding:20px}
+.chef-type{
+  color:var(--gold);font-size:11px;font-weight:900;
+  letter-spacing:.15em;text-transform:uppercase;margin-bottom:9px
+}
+.chef-card-line{display:flex;justify-content:space-between;gap:12px;align-items:start}
+.chef-card h3{font:600 23px/1.08 Georgia,serif;margin:0}
+.chef-card p{color:#cfc6ba;font-size:14px;margin:10px 0 0}
+.chef-price{font-weight:900;white-space:nowrap;color:#f0d39a}
+.chef-admin-settings{margin:10px 0 15px}
+.chef-admin-box{
+  display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+  background:#f7eddc;border:1px solid #ead4ac;border-radius:14px;padding:12px 14px
+}
+.chef-admin-box label{font-size:13px;font-weight:700;color:#5d4a2d}
+.chef-admin-box input[type="date"]{margin-left:6px;padding:7px 9px;border:1px solid var(--line);border-radius:8px}
+@media(max-width:850px){.chef-grid{grid-template-columns:1fr}.chef-image{height:220px}}
+
+/* V9 - correção de renderização da Sugestão do Chefe */
+#chefSuggestion[hidden]{display:none!important}
+#chefSuggestion:not([hidden]){display:block}
+
+.chef-suggestion{margin:30px auto 48px}
+.chef-panel{position:relative;overflow:hidden;border-radius:22px;padding:34px;color:#fff;background:linear-gradient(180deg,rgba(24,16,9,.90),rgba(17,11,7,.97)),radial-gradient(circle at 50% 0%,rgba(203,159,84,.14),transparent 34%),url('../assets/restaurant-hero.jpg') center/cover no-repeat;border:1px solid rgba(205,158,82,.62);box-shadow:0 20px 48px rgba(33,22,13,.20)}
+.chef-brand{position:absolute;top:18px;left:20px;z-index:2}.chef-logo{width:84px;height:84px;object-fit:contain;border-radius:14px;background:rgba(18,13,9,.34);box-shadow:0 8px 22px rgba(0,0,0,.24)}
+.chef-panel-top{position:relative;z-index:2;max-width:830px;margin:0 auto 26px;text-align:center}.chef-title-row{display:flex;justify-content:center;align-items:flex-end;gap:16px;flex-wrap:wrap;padding-top:8px}
+.chef-title-main{font:600 clamp(40px,5vw,66px)/.95 Georgia,serif;letter-spacing:.015em}.chef-title-script{font-family:"Segoe Script","Brush Script MT",cursive;font-size:clamp(40px,5vw,68px);line-height:.82;color:#d8aa5f;font-weight:400}
+.chef-rule{display:flex;align-items:center;justify-content:center;gap:12px;margin:14px auto 8px;color:#d8aa5f}.chef-rule span{width:135px;height:1px;background:linear-gradient(90deg,transparent,#d8aa5f)}.chef-rule span:last-child{background:linear-gradient(90deg,#d8aa5f,transparent)}
+.chef-tradition{color:#f0e8df;font-size:11px;font-weight:800;letter-spacing:.34em}.chef-panel-top p{max-width:720px;margin:14px auto 0;color:#e3d9cf;font:italic 17px/1.45 Georgia,serif}
+.chef-grid{position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.chef-card{display:flex;flex-direction:column;overflow:hidden;border-radius:18px;border:1px solid rgba(210,165,91,.48);background:linear-gradient(180deg,rgba(53,36,22,.97),rgba(27,18,11,.99));box-shadow:0 14px 34px rgba(0,0,0,.24);transition:.18s ease}
+.chef-card:hover{transform:translateY(-4px);border-color:#d8aa5f;box-shadow:0 20px 44px rgba(0,0,0,.30)}.chef-image{width:100%;height:245px;object-fit:cover;display:block;cursor:zoom-in}.chef-card-body{display:flex;flex-direction:column;flex:1;padding:17px 18px 20px}
+.chef-type{align-self:flex-start;display:inline-flex;margin-bottom:10px;padding:5px 12px;border-radius:999px;background:linear-gradient(180deg,#b98b45,#8a622d);color:#fff7e8;font-size:10px;font-weight:900;letter-spacing:.17em;text-transform:uppercase}
+.chef-card-line{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.chef-card h3{margin:0;font:600 23px/1.08 Georgia,serif}.chef-price{flex:0 0 auto;padding:7px 12px;border:1px solid rgba(216,170,95,.92);border-radius:999px;background:rgba(17,11,7,.64);color:#f1d399;font-weight:900;white-space:nowrap}
+.chef-card p{margin:12px 0 0;color:#d8cec3;font-size:14px;line-height:1.5}.chef-tagline{position:relative;z-index:2;margin-top:22px;text-align:center;color:#d8aa5f;font-family:"Segoe Script","Brush Script MT",cursive;font-size:28px}
+@media(max-width:920px){.chef-brand{position:relative;top:auto;left:auto;display:flex;justify-content:center;margin-bottom:10px}.chef-logo{width:76px;height:76px}.chef-grid{grid-template-columns:1fr}.chef-image{height:270px}}
+@media(max-width:600px){.chef-panel{padding:22px 13px 18px}.chef-title-row{gap:8px}.chef-title-main,.chef-title-script{font-size:38px}.chef-rule span{width:72px}.chef-tradition{letter-spacing:.18em}.chef-panel-top p{font-size:15px}.chef-image{height:225px}.chef-card-line{flex-direction:column}.chef-price{align-self:flex-start}.chef-tagline{font-size:22px}}
+
+
+/* =========================================================
+   V12 - Sugestão do Chefe corrigida e alinhada com o mockup
+   ========================================================= */
+#chefSuggestion[hidden]{display:none!important}
+#chefSuggestion:not([hidden]){display:block!important}
+
+.chef-suggestion{
+  margin:34px auto 48px!important;
+}
+
+.chef-panel{
+  position:relative!important;
+  overflow:hidden!important;
+  border-radius:22px!important;
+  padding:34px 34px 26px!important;
+  color:#fff!important;
+  background:
+    linear-gradient(180deg,rgba(25,17,10,.91),rgba(16,10,6,.97)),
+    radial-gradient(circle at 50% 5%,rgba(206,162,88,.16),transparent 38%),
+    url('../assets/restaurant-hero.jpg') center/cover no-repeat!important;
+  border:1px solid rgba(209,163,86,.62)!important;
+  box-shadow:0 22px 54px rgba(38,24,12,.24)!important;
+}
+
+.chef-panel::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(90deg,rgba(0,0,0,.10),transparent 24%,transparent 76%,rgba(0,0,0,.10));
+}
+
+.chef-logo{
+  position:absolute!important;
+  top:22px!important;
+  left:22px!important;
+  z-index:4!important;
+  width:82px!important;
+  height:82px!important;
+  object-fit:contain!important;
+  border-radius:14px!important;
+  background:rgba(13,9,6,.28)!important;
+  box-shadow:0 8px 22px rgba(0,0,0,.25)!important;
+}
+
+.chef-panel-top{
+  position:relative!important;
+  z-index:3!important;
+  max-width:850px!important;
+  margin:0 auto 26px!important;
+  text-align:center!important;
+}
+
+.chef-title-row{
+  display:flex!important;
+  justify-content:center!important;
+  align-items:flex-end!important;
+  gap:16px!important;
+  flex-wrap:wrap!important;
+}
+
+.chef-title-main{
+  font:600 clamp(42px,5vw,66px)/.95 Georgia,serif!important;
+  letter-spacing:.01em!important;
+  color:#fff!important;
+}
+
+.chef-title-script{
+  font-family:"Segoe Script","Brush Script MT",cursive!important;
+  font-size:clamp(40px,5vw,66px)!important;
+  line-height:.82!important;
+  color:#d8aa5f!important;
+  font-weight:400!important;
+}
+
+.chef-rule{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:12px!important;
+  margin:13px auto 8px!important;
+  color:#d8aa5f!important;
+}
+
+.chef-rule span{
+  width:135px!important;
+  height:1px!important;
+  background:linear-gradient(90deg,transparent,#d8aa5f)!important;
+}
+.chef-rule span:last-child{
+  background:linear-gradient(90deg,#d8aa5f,transparent)!important;
+}
+
+.chef-tradition{
+  color:#f0e8df!important;
+  font-size:11px!important;
+  font-weight:800!important;
+  letter-spacing:.32em!important;
+}
+
+.chef-panel-top p{
+  max-width:760px!important;
+  margin:14px auto 0!important;
+  color:#e8dfd5!important;
+  font:italic 17px/1.45 Georgia,serif!important;
+}
+
+.chef-grid{
+  position:relative!important;
+  z-index:3!important;
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:16px!important;
+}
+
+.chef-card{
+  display:flex!important;
+  flex-direction:column!important;
+  min-width:0!important;
+  overflow:hidden!important;
+  border-radius:18px!important;
+  border:1px solid rgba(210,165,91,.48)!important;
+  background:linear-gradient(180deg,rgba(54,36,22,.98),rgba(27,18,11,.995))!important;
+  box-shadow:0 14px 34px rgba(0,0,0,.24)!important;
+}
+
+.chef-card:hover{
+  transform:translateY(-4px)!important;
+  border-color:#d8aa5f!important;
+  box-shadow:0 20px 44px rgba(0,0,0,.30)!important;
+}
+
+.chef-image{
+  width:100%!important;
+  height:250px!important;
+  object-fit:cover!important;
+  display:block!important;
+  cursor:zoom-in!important;
+}
+
+.chef-card-body{
+  display:flex!important;
+  flex-direction:column!important;
+  flex:1!important;
+  padding:17px 18px 20px!important;
+}
+
+.chef-type{
+  align-self:flex-start!important;
+  display:inline-flex!important;
+  margin-bottom:11px!important;
+  padding:5px 12px!important;
+  border-radius:999px!important;
+  background:linear-gradient(180deg,#b98b45,#8a622d)!important;
+  color:#fff7e8!important;
+  font-size:10px!important;
+  font-weight:900!important;
+  letter-spacing:.17em!important;
+  text-transform:uppercase!important;
+}
+
+.chef-card-line{
+  display:flex!important;
+  justify-content:space-between!important;
+  align-items:flex-start!important;
+  gap:12px!important;
+}
+
+.chef-card h3{
+  margin:0!important;
+  font:600 23px/1.08 Georgia,serif!important;
+  color:#fff!important;
+}
+
+.chef-price{
+  flex:0 0 auto!important;
+  padding:7px 12px!important;
+  border:1px solid rgba(216,170,95,.92)!important;
+  border-radius:999px!important;
+  background:rgba(17,11,7,.64)!important;
+  color:#f1d399!important;
+  font-weight:900!important;
+  white-space:nowrap!important;
+}
+
+.chef-card p{
+  margin:12px 0 0!important;
+  color:#d8cec3!important;
+  font-size:14px!important;
+  line-height:1.5!important;
+}
+
+.chef-tagline{
+  position:relative!important;
+  z-index:3!important;
+  margin-top:24px!important;
+  text-align:center!important;
+  color:#d8aa5f!important;
+  font-family:"Segoe Script","Brush Script MT",cursive!important;
+  font-size:28px!important;
+}
+
+@media(max-width:920px){
+  .chef-logo{
+    position:relative!important;
+    top:auto!important;
+    left:auto!important;
+    display:block!important;
+    margin:0 auto 12px!important;
+    width:74px!important;
+    height:74px!important;
+  }
+  .chef-grid{
+    grid-template-columns:1fr!important;
+  }
+  .chef-image{
+    height:270px!important;
+  }
+}
+
+@media(max-width:600px){
+  .chef-panel{padding:22px 13px 18px!important}
+  .chef-title-row{gap:8px!important}
+  .chef-title-main,.chef-title-script{font-size:38px!important}
+  .chef-rule span{width:72px!important}
+  .chef-tradition{letter-spacing:.18em!important}
+  .chef-panel-top p{font-size:15px!important}
+  .chef-image{height:225px!important}
+  .chef-card-line{flex-direction:column!important}
+  .chef-price{align-self:flex-start!important}
+  .chef-tagline{font-size:22px!important}
+}
+
+
+/* ==========================================================
+   V13 — implementação fiel ao mockup aprovado
+   ========================================================== */
+body{background:#f4eee6!important;color:#1d1712!important}
+
+.menu-hero{
+  min-height:262px!important;
+  height:auto!important;
+  color:#fff!important;
+  background:
+    linear-gradient(90deg,rgba(10,8,6,.82),rgba(10,8,6,.46)),
+    url('../assets/restaurant-hero.jpg') center 46%/cover no-repeat!important;
+}
+
+.menu-nav{
+  display:grid!important;
+  grid-template-columns:140px 1fr 330px!important;
+  align-items:center!important;
+  gap:20px!important;
+  padding:16px 0 8px!important;
+}
+
+.nav-logo img{
+  width:92px!important;
+  height:92px!important;
+  object-fit:cover!important;
+  border-radius:18px!important;
+  display:block!important;
+  box-shadow:0 9px 28px rgba(0,0,0,.28)!important;
+}
+
+.main-nav{
+  display:flex!important;
+  justify-content:center!important;
+  align-items:center!important;
+  gap:44px!important;
+}
+
+.main-nav a{
+  color:#f4ede4!important;
+  text-decoration:none!important;
+  font:600 16px Georgia,serif!important;
+  padding:10px 0!important;
+  border-bottom:2px solid transparent!important;
+}
+
+.main-nav a.active{
+  color:#fff!important;
+  border-bottom-color:#d8aa5f!important;
+}
+
+.menu-language-flags{
+  position:static!important;
+  transform:none!important;
+  display:flex!important;
+  justify-self:end!important;
+  align-items:center!important;
+  gap:8px!important;
+  padding:8px 10px!important;
+  border:1px solid rgba(221,177,100,.55)!important;
+  border-radius:999px!important;
+  background:rgba(18,12,8,.62)!important;
+  backdrop-filter:blur(8px)!important;
+}
+
+.menu-language-flags a{
+  width:34px!important;
+  height:34px!important;
+  border-radius:50%!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+
+.menu-language-flags a img{
+  width:24px!important;
+  height:17px!important;
+  border-radius:2px!important;
+}
+
+.menu-language-flags a.active{
+  box-shadow:0 0 0 2px #d8aa5f inset!important;
+  background:rgba(216,170,95,.15)!important;
+}
+
+.hero-copy{
+  padding:4px 0 38px!important;
+}
+
+.hero-copy .eyebrow{
+  color:#d8aa5f!important;
+  font-size:12px!important;
+  letter-spacing:.14em!important;
+}
+
+.hero-copy h1{
+  margin:5px 0 4px!important;
+  font:600 clamp(50px,5vw,67px)/1 Georgia,serif!important;
+  color:#fff!important;
+}
+
+.hero-copy p{
+  margin:0!important;
+  color:#eee5db!important;
+  font:18px Georgia,serif!important;
+}
+
+.type-switch-wrap{
+  margin-top:-18px!important;
+  position:relative!important;
+  z-index:5!important;
+}
+
+.type-switch{
+  padding:0!important;
+  display:flex!important;
+  gap:8px!important;
+}
+
+.type-switch button{
+  padding:11px 20px!important;
+  border-radius:999px!important;
+  font-weight:800!important;
+  border:1px solid #ddd0bf!important;
+  background:#fffaf4!important;
+}
+
+.type-switch button.active{
+  background:#17120e!important;
+  border-color:#17120e!important;
+  color:#fff!important;
+}
+
+.chef-suggestion{
+  margin:18px auto 38px!important;
+}
+
+.chef-panel{
+  position:relative!important;
+  overflow:hidden!important;
+  border-radius:18px!important;
+  padding:30px 44px 22px!important;
+  color:#fff!important;
+  background:
+    linear-gradient(180deg,rgba(28,18,10,.88),rgba(16,10,6,.96)),
+    radial-gradient(circle at 50% 6%,rgba(213,169,92,.15),transparent 38%),
+    url('../assets/restaurant-hero.jpg') center/cover no-repeat!important;
+  border:1px solid #b98235!important;
+  box-shadow:0 18px 48px rgba(41,27,14,.22)!important;
+}
+
+.chef-panel::before,
+.chef-panel::after{
+  content:""!important;
+  position:absolute!important;
+  top:-60px!important;
+  width:210px!important;
+  height:300px!important;
+  opacity:.20!important;
+  pointer-events:none!important;
+  background:
+    radial-gradient(ellipse at 50% 15%,transparent 0 56%,#6b7d42 57% 59%,transparent 60%),
+    radial-gradient(ellipse at 40% 35%,transparent 0 53%,#6b7d42 54% 56%,transparent 57%),
+    radial-gradient(ellipse at 60% 55%,transparent 0 52%,#6b7d42 53% 55%,transparent 56%)!important;
+}
+.chef-panel::before{left:-52px!important;transform:rotate(-25deg)!important}
+.chef-panel::after{right:-52px!important;transform:scaleX(-1) rotate(-25deg)!important}
+
+.chef-panel-head{
+  position:relative!important;
+  z-index:2!important;
+  text-align:center!important;
+  max-width:860px!important;
+  margin:0 auto 20px!important;
+}
+
+.chef-icon{
+  width:44px!important;
+  height:22px!important;
+  margin:-41px auto 8px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  color:#d8aa5f!important;
+  font-size:18px!important;
+  background:#1f150d!important;
+  border:1px solid #b98235!important;
+  border-bottom:0!important;
+  border-radius:22px 22px 0 0!important;
+}
+
+.chef-title-row{
+  display:flex!important;
+  justify-content:center!important;
+  align-items:flex-end!important;
+  gap:12px!important;
+  flex-wrap:wrap!important;
+}
+
+.chef-title-main{
+  color:#fff!important;
+  font:600 clamp(42px,4.3vw,58px)/.95 Georgia,serif!important;
+  letter-spacing:.02em!important;
+}
+
+.chef-title-script{
+  color:#d8aa5f!important;
+  font-family:"Segoe Script","Brush Script MT",cursive!important;
+  font-size:clamp(40px,4.5vw,58px)!important;
+  line-height:.82!important;
+  font-weight:400!important;
+}
+
+.chef-tradition{
+  margin-top:9px!important;
+  color:#f5eee6!important;
+  font-size:11px!important;
+  font-weight:800!important;
+  letter-spacing:.34em!important;
+}
+
+.chef-mini-rule{
+  width:72px!important;
+  height:1px!important;
+  margin:8px auto 0!important;
+  background:#d8aa5f!important;
+}
+
+.chef-panel-head p{
+  margin:12px auto 0!important;
+  color:#e8ded4!important;
+  font:italic 17px/1.42 Georgia,serif!important;
+}
+
+.chef-grid{
+  position:relative!important;
+  z-index:2!important;
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:16px!important;
+}
+
+.chef-card{
+  overflow:hidden!important;
+  border-radius:16px!important;
+  background:linear-gradient(180deg,rgba(52,35,21,.97),rgba(29,19,11,.99))!important;
+  border:1px solid rgba(200,147,65,.62)!important;
+  box-shadow:none!important;
+}
+
+.chef-card-header{
+  padding:11px 16px 10px!important;
+}
+
+.chef-type{
+  display:inline-block!important;
+  margin:0 0 8px!important;
+  padding:4px 13px!important;
+  background:linear-gradient(180deg,#b98a43,#8a622d)!important;
+  border-radius:999px!important;
+  color:#fff8eb!important;
+  letter-spacing:.2em!important;
+  font-size:10px!important;
+  font-weight:900!important;
+}
+
+.chef-card h3{
+  margin:0!important;
+  min-height:46px!important;
+  font:600 22px/1.05 Georgia,serif!important;
+  color:#fff!important;
+}
+
+.chef-image-wrap{
+  position:relative!important;
+  margin:0 7px!important;
+  overflow:hidden!important;
+  border-radius:13px!important;
+}
+
+.chef-image{
+  width:100%!important;
+  height:228px!important;
+  object-fit:cover!important;
+  display:block!important;
+  cursor:zoom-in!important;
+}
+
+.chef-price{
+  position:absolute!important;
+  right:12px!important;
+  bottom:-1px!important;
+  padding:9px 17px!important;
+  border:1px solid #d8aa5f!important;
+  border-radius:999px 999px 0 0!important;
+  background:rgba(24,15,9,.92)!important;
+  color:#f0d398!important;
+  font:700 20px Georgia,serif!important;
+}
+
+.chef-card-body{
+  padding:10px 16px 14px!important;
+}
+
+.chef-card-body p{
+  min-height:42px!important;
+  margin:0!important;
+  color:#ded4c9!important;
+  font:14px/1.45 Georgia,serif!important;
+}
+
+.chef-tagline{
+  position:relative!important;
+  z-index:2!important;
+  margin-top:14px!important;
+  text-align:center!important;
+  color:#d8aa5f!important;
+  font-family:"Segoe Script","Brush Script MT",cursive!important;
+  font-size:27px!important;
+}
+
+.chef-tagline-rule{
+  display:block!important;
+  width:130px!important;
+  height:1px!important;
+  margin:8px auto 0!important;
+  background:linear-gradient(90deg,transparent,#d8aa5f,transparent)!important;
+}
+
+.regular-menu{
+  padding-bottom:70px!important;
+}
+
+.category-strip{
+  display:none!important;
+}
+
+.menu-content{
+  display:grid!important;
+  gap:28px!important;
+}
+
+.section{
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+  overflow:visible!important;
+}
+
+.section-heading{
+  display:flex!important;
+  align-items:center!important;
+  gap:30px!important;
+  margin:6px 0 12px!important;
+}
+
+.section-heading h2{
+  flex:0 0 auto!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  font:600 40px/1 Georgia,serif!important;
+  color:#18130f!important;
+}
+
+.section-heading span{
+  flex:0 0 auto!important;
+  font:italic 18px Georgia,serif!important;
+  color:#5e5449!important;
+}
+
+.section-heading i{
+  flex:1!important;
+  height:1px!important;
+  background:#d0a05b!important;
+}
+
+.dish{
+  background:#fffaf4!important;
+  border:1px solid #e4dacd!important;
+  border-radius:14px!important;
+  padding:14px!important;
+  margin-bottom:10px!important;
+}
+
+footer{
+  margin-top:30px!important;
+}
+
+@media(max-width:900px){
+  .menu-nav{
+    grid-template-columns:90px 1fr!important;
+  }
+  .main-nav{display:none!important}
+  .menu-language-flags{grid-column:2!important}
+  .chef-grid{grid-template-columns:1fr!important}
+  .chef-image{height:280px!important}
+}
+
+@media(max-width:600px){
+  .menu-nav{
+    grid-template-columns:70px 1fr!important;
+    padding-top:10px!important;
+  }
+  .nav-logo img{
+    width:64px!important;height:64px!important;border-radius:14px!important;
+  }
+  .menu-language-flags{
+    gap:2px!important;padding:5px 7px!important;
+  }
+  .menu-language-flags a{
+    width:30px!important;height:30px!important;
+  }
+  .menu-language-flags a img{
+    width:21px!important;height:15px!important;
+  }
+  .hero-copy{
+    padding-bottom:30px!important;
+  }
+  .chef-panel{
+    padding:24px 12px 18px!important;
+  }
+  .chef-icon{margin-top:-35px!important}
+  .chef-title-main,.chef-title-script{
+    font-size:37px!important;
+  }
+  .chef-tradition{letter-spacing:.18em!important}
+  .chef-panel-head p{font-size:15px!important}
+  .chef-image{height:220px!important}
+  .section-heading{
+    gap:12px!important;
+    align-items:flex-end!important;
+    flex-wrap:wrap!important;
+  }
+  .section-heading h2{font-size:32px!important}
+  .section-heading span{font-size:15px!important}
+  .section-heading i{flex-basis:100%!important}
+}
+
+
+/* ==========================================================
+   V14 — simplificação do topo da Sugestão do Chefe
+   ========================================================== */
+
+/* Esconder definitivamente os elementos antigos, caso restem
+   por cache ou por estilos anteriores. */
+.chef-icon,
+.chef-tradition,
+.chef-mini-rule,
+#chefSubtitle{
+  display:none!important;
+}
+
+/* Pequeno ornamento no topo, sem texto adicional. */
+.chef-crown{
+  position:relative!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:10px!important;
+  width:210px!important;
+  margin:-18px auto 7px!important;
+  color:#d8aa5f!important;
+}
+
+.chef-crown > span{
+  display:block!important;
+  width:74px!important;
+  height:1px!important;
+  background:linear-gradient(90deg,transparent,#d8aa5f)!important;
+}
+
+.chef-crown > span:last-child{
+  background:linear-gradient(90deg,#d8aa5f,transparent)!important;
+}
+
+.chef-hat-icon{
+  position:relative!important;
+  width:34px!important;
+  height:24px!important;
+  flex:0 0 34px!important;
+}
+
+/* Base do chapéu */
+.chef-hat-icon::after{
+  content:""!important;
+  position:absolute!important;
+  left:6px!important;
+  right:6px!important;
+  bottom:1px!important;
+  height:5px!important;
+  border:1.5px solid #d8aa5f!important;
+  border-top:0!important;
+  border-radius:0 0 5px 5px!important;
+}
+
+/* Coroa do chapéu */
+.chef-hat-icon::before{
+  content:""!important;
+  position:absolute!important;
+  left:7px!important;
+  top:8px!important;
+  width:20px!important;
+  height:10px!important;
+  border:1.5px solid #d8aa5f!important;
+  border-bottom:0!important;
+  border-radius:11px 11px 0 0!important;
+}
+
+/* Três lóbulos simples */
+.chef-hat-icon i{
+  position:absolute!important;
+  top:3px!important;
+  width:9px!important;
+  height:9px!important;
+  border:1.5px solid #d8aa5f!important;
+  border-radius:50%!important;
+  background:#1b120b!important;
+}
+
+.chef-hat-icon i:nth-child(1){left:5px!important}
+.chef-hat-icon i:nth-child(2){left:12.5px!important;top:0!important}
+.chef-hat-icon i:nth-child(3){right:5px!important}
+
+/* Espaçamento do título mais compacto depois de remover texto extra. */
+.chef-panel-head{
+  margin-bottom:18px!important;
+}
+
+.chef-title-row{
+  margin-top:0!important;
+}
+
+.chef-title-ornament{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:9px!important;
+  width:250px!important;
+  margin:12px auto 0!important;
+  color:#d8aa5f!important;
+}
+
+.chef-title-ornament span{
+  display:block!important;
+  width:92px!important;
+  height:1px!important;
+  background:linear-gradient(90deg,transparent,#d8aa5f)!important;
+}
+
+.chef-title-ornament span:last-child{
+  background:linear-gradient(90deg,#d8aa5f,transparent)!important;
+}
+
+.chef-title-ornament b{
+  font-size:8px!important;
+  line-height:1!important;
+  color:#d8aa5f!important;
+}
+
+/* Aproximar os cartões do título, como no mockup. */
+.chef-grid{
+  margin-top:18px!important;
+}
+
+@media(max-width:600px){
+  .chef-crown{
+    width:160px!important;
+    margin-top:-13px!important;
+  }
+  .chef-crown > span{
+    width:50px!important;
+  }
+  .chef-title-ornament{
+    width:180px!important;
+  }
+  .chef-title-ornament span{
+    width:62px!important;
+  }
+}
+
+/* V15 - navegação Comida/Bebidas */
+#menuArea{scroll-margin-top:24px;}
+
+
+/* ==========================================================
+   V16 — Sugestão do Chefe alinhada com o mockup aprovado
+   ========================================================== */
+
+/* Remover restos de versões anteriores */
+.chef-crown,
+.chef-hat-icon,
+.chef-title-ornament,
+.chef-icon,
+.chef-tradition,
+.chef-mini-rule,
+.chef-tagline,
+#chefSubtitle{
+  display:none!important;
+}
+
+.chef-suggestion{
+  margin:24px auto 42px!important;
+}
+
+.chef-panel{
+  position:relative!important;
+  overflow:visible!important;
+  border-radius:18px!important;
+  padding:38px 42px 26px!important;
+  color:#fff!important;
+  background:
+    linear-gradient(180deg,rgba(24,15,8,.88),rgba(15,9,5,.95)),
+    radial-gradient(circle at 50% 6%,rgba(210,165,90,.12),transparent 35%),
+    url('../assets/restaurant-hero.jpg') center/cover no-repeat!important;
+  border:1px solid #b98033!important;
+  box-shadow:0 18px 44px rgba(40,25,12,.22)!important;
+}
+
+/* O "alto" central pedido pelo utilizador */
+.chef-top-bump{
+  position:absolute!important;
+  top:-18px!important;
+  left:50%!important;
+  transform:translateX(-50%)!important;
+  width:76px!important;
+  height:36px!important;
+  z-index:6!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  background:#1c120b!important;
+  border:1px solid #b98033!important;
+  border-bottom:0!important;
+  border-radius:38px 38px 0 0!important;
+}
+
+.chef-top-bump::before,
+.chef-top-bump::after{
+  content:""!important;
+  position:absolute!important;
+  bottom:0!important;
+  width:34px!important;
+  height:1px!important;
+  background:#b98033!important;
+}
+.chef-top-bump::before{right:100%!important}
+.chef-top-bump::after{left:100%!important}
+
+.chef-top-bump img{
+  width:27px!important;
+  height:27px!important;
+  object-fit:contain!important;
+  display:block!important;
+}
+
+/* Plantas como no mockup */
+.chef-plant{
+  position:absolute!important;
+  z-index:1!important;
+  pointer-events:none!important;
+  opacity:.72!important;
+  width:190px!important;
+  height:auto!important;
+}
+
+.chef-plant-left{
+  left:-34px!important;
+  top:-8px!important;
+}
+
+.chef-plant-right{
+  right:-34px!important;
+  top:-8px!important;
+  transform:scaleX(-1)!important;
+}
+
+.chef-panel-head{
+  position:relative!important;
+  z-index:3!important;
+  max-width:900px!important;
+  margin:0 auto 18px!important;
+  text-align:center!important;
+}
+
+.chef-title-row{
+  display:flex!important;
+  justify-content:center!important;
+  align-items:flex-end!important;
+  gap:12px!important;
+  flex-wrap:wrap!important;
+}
+
+.chef-title-main{
+  font:600 clamp(42px,4.2vw,58px)/.95 Georgia,serif!important;
+  color:#fff!important;
+  letter-spacing:.01em!important;
+}
+
+.chef-title-script{
+  font-family:"Segoe Script","Brush Script MT",cursive!important;
+  font-size:clamp(41px,4.4vw,59px)!important;
+  line-height:.82!important;
+  color:#d8aa5f!important;
+  font-weight:400!important;
+}
+
+.chef-title-row::after{
+  content:""!important;
+  display:block!important;
+  flex-basis:100%!important;
+  width:120px!important;
+  max-width:120px!important;
+  height:1px!important;
+  margin:10px auto 0!important;
+  background:linear-gradient(90deg,transparent,#d8aa5f,transparent)!important;
+}
+
+.chef-grid{
+  position:relative!important;
+  z-index:3!important;
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:16px!important;
+  margin-top:14px!important;
+}
+
+.chef-card{
+  overflow:hidden!important;
+  border-radius:16px!important;
+  background:linear-gradient(180deg,rgba(53,35,21,.97),rgba(28,18,11,.99))!important;
+  border:1px solid rgba(199,145,64,.62)!important;
+  box-shadow:none!important;
+}
+
+.chef-card-header{
+  padding:11px 16px 10px!important;
+}
+
+.chef-type{
+  display:inline-block!important;
+  margin:0 0 8px!important;
+  padding:4px 13px!important;
+  border-radius:999px!important;
+  background:linear-gradient(180deg,#b98a43,#8b622c)!important;
+  color:#fff8eb!important;
+  font-size:10px!important;
+  font-weight:900!important;
+  letter-spacing:.18em!important;
+}
+
+.chef-card h3{
+  margin:0!important;
+  min-height:44px!important;
+  font:600 22px/1.05 Georgia,serif!important;
+  color:#fff!important;
+}
+
+.chef-image-wrap{
+  position:relative!important;
+  margin:0 7px!important;
+  border-radius:13px!important;
+  overflow:hidden!important;
+}
+
+.chef-image{
+  width:100%!important;
+  height:230px!important;
+  object-fit:cover!important;
+  display:block!important;
+  cursor:zoom-in!important;
+  filter:saturate(1.04) contrast(1.03)!important;
+}
+
+.chef-price{
+  position:absolute!important;
+  right:10px!important;
+  bottom:-1px!important;
+  padding:9px 17px!important;
+  border:1px solid #d8aa5f!important;
+  border-radius:999px 999px 0 0!important;
+  background:rgba(24,15,9,.94)!important;
+  color:#f0d398!important;
+  font:700 20px Georgia,serif!important;
+}
+
+.chef-card-body{
+  padding:10px 16px 14px!important;
+}
+
+.chef-card-body p{
+  margin:0!important;
+  min-height:42px!important;
+  color:#ded4c9!important;
+  font:14px/1.45 Georgia,serif!important;
+}
+
+@media(max-width:900px){
+  .chef-grid{grid-template-columns:1fr!important}
+  .chef-image{height:280px!important}
+  .chef-plant{width:150px!important;opacity:.48!important}
+}
+
+@media(max-width:600px){
+  .chef-panel{padding:30px 12px 18px!important}
+  .chef-top-bump{width:66px!important;height:32px!important;top:-16px!important}
+  .chef-top-bump img{width:23px!important;height:23px!important}
+  .chef-title-main,.chef-title-script{font-size:37px!important}
+  .chef-plant{width:105px!important;opacity:.38!important}
+  .chef-image{height:220px!important}
+}
+
+
+/* ==========================================================
+   V17 — imagens finais aprovadas pelo utilizador
+   ========================================================== */
+
+.chef-panel{
+  background:
+    linear-gradient(180deg,rgba(18,11,6,.30),rgba(14,8,4,.40)),
+    url('../assets/chef-background.jpg') center/cover no-repeat!important;
+}
+
+/* As plantas passam a fazer parte da imagem de fundo real */
+.chef-plant{
+  display:none!important;
+}
+
+/* Mostrar mais área das novas fotografias, sem cortes agressivos */
+.chef-image{
+  width:100%!important;
+  height:250px!important;
+  object-fit:cover!important;
+  object-position:center center!important;
+  filter:none!important;
+}
+
+/* Harmonização subtil dos cartões com o novo fundo */
+.chef-card{
+  background:linear-gradient(180deg,rgba(50,33,20,.94),rgba(28,18,11,.97))!important;
+  backdrop-filter:blur(1px)!important;
+}
+
+/* Manter o ressalto central por cima do novo fundo */
+.chef-top-bump{
+  background:#1b110a!important;
+  border-color:#b98033!important;
+}
+
+/* Evitar que a área central fique demasiado escura */
+.chef-panel::before,
+.chef-panel::after{
+  display:none!important;
+}
+
+
+/* V18 - ressalto central corrigido */
+.chef-top-bump{
+  position:absolute!important;
+  top:-18px!important;
+  left:50%!important;
+  transform:translateX(-50%)!important;
+  width:86px!important;
+  height:36px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  background:#1a1009!important;
+  border:1px solid #b98033!important;
+  border-bottom:0!important;
+  border-radius:43px 43px 0 0!important;
+  z-index:8!important;
+  box-shadow:0 3px 0 #1a1009!important;
+}
+.chef-top-bump::before,
+.chef-top-bump::after{
+  display:none!important;
+  content:none!important;
+}
+.chef-top-bump img{
+  width:23px!important;
+  height:23px!important;
+  margin-top:6px!important;
+  object-fit:contain!important;
+  display:block!important;
+}
+.chef-panel{
+  border-top:1px solid #b98033!important;
+}
+@media(max-width:600px){
+  .chef-top-bump{
+    width:74px!important;
+    height:32px!important;
+    top:-16px!important;
+    border-radius:37px 37px 0 0!important;
+  }
+  .chef-top-bump img{
+    width:21px!important;
+    height:21px!important;
+    margin-top:5px!important;
+  }
+}
+
+
+/* ==========================================================
+   V19 — forma superior exatamente como a referência:
+   reta -> curva ascendente -> topo curto -> curva descendente -> reta
+   ícone por baixo da linha, dentro do painel
+   ========================================================== */
+
+/* Neutralizar a implementação antiga */
+.chef-top-bump{
+  display:none!important;
+}
+
+.chef-panel{
+  overflow:visible!important;
+  border-top-color:transparent!important;
+}
+
+/* Linha superior desenhada em SVG */
+.chef-top-shape{
+  position:absolute!important;
+  top:-2px!important;
+  left:50%!important;
+  transform:translateX(-50%)!important;
+  width:220px!important;
+  height:58px!important;
+  z-index:10!important;
+  color:#b98033!important;
+  pointer-events:none!important;
+}
+
+.chef-top-shape-svg{
+  position:absolute!important;
+  top:-27px!important;
+  left:0!important;
+  width:220px!important;
+  height:36px!important;
+  overflow:visible!important;
+}
+
+/* Ícone claramente abaixo da linha, como na referência */
+.chef-top-icon{
+  position:absolute!important;
+  top:3px!important;
+  left:50%!important;
+  transform:translateX(-50%)!important;
+  width:24px!important;
+  height:24px!important;
+  object-fit:contain!important;
+  display:block!important;
+}
+
+/* A linha superior do painel é refeita em dois troços,
+   deixando o centro entregue ao SVG. */
+.chef-panel::before,
+.chef-panel::after{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  top:0!important;
+  height:1px!important;
+  background:#b98033!important;
+  z-index:5!important;
+  opacity:1!important;
+  width:calc(50% - 78px)!important;
+}
+
+.chef-panel::before{
+  left:0!important;
+}
+
+.chef-panel::after{
+  right:0!important;
+}
+
+/* Dar espaço ao ícone sem afastar demasiado o título */
+.chef-panel-head{
+  padding-top:15px!important;
+}
+
+/* Mobile */
+@media(max-width:600px){
+  .chef-top-shape{
+    width:180px!important;
+    height:52px!important;
+  }
+
+  .chef-top-shape-svg{
+    width:180px!important;
+    height:32px!important;
+    top:-24px!important;
+  }
+
+  .chef-top-icon{
+    width:21px!important;
+    height:21px!important;
+    top:2px!important;
+  }
+
+  .chef-panel::before,
+  .chef-panel::after{
+    width:calc(50% - 64px)!important;
+  }
+}
+
+
+/* ==========================================================
+   V20 — correção definitiva do topo da Sugestão do Chefe
+   ========================================================== */
+
+/* IMPORTANTE: as diagonais da V19 vinham dos pseudo-elementos
+   já usados anteriormente pelo painel. Desativamo-los totalmente. */
+.chef-panel::before,
+.chef-panel::after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+  border:0!important;
+  transform:none!important;
+  width:0!important;
+  height:0!important;
+}
+
+/* Recupera a linha superior normal do painel. */
+.chef-panel{
+  overflow:visible!important;
+  border-top:1px solid #b98033!important;
+}
+
+/* O SVG fica centrado sobre a borda e contém o próprio
+   preenchimento castanho, por isso a forma é realmente uma
+   continuação do painel e não apenas uma linha desenhada. */
+.chef-top-shape{
+  position:absolute!important;
+  left:50%!important;
+  top:-34px!important;
+  transform:translateX(-50%)!important;
+  width:220px!important;
+  height:42px!important;
+  z-index:20!important;
+  pointer-events:none!important;
+}
+
+.chef-top-shape-svg{
+  position:absolute!important;
+  inset:0!important;
+  width:220px!important;
+  height:42px!important;
+  display:block!important;
+  overflow:visible!important;
+}
+
+.chef-bump-fill{
+  fill:#1a1009!important;
+  stroke:none!important;
+}
+
+.chef-bump-line{
+  fill:none!important;
+  stroke:#b98033!important;
+  stroke-width:1.5!important;
+  vector-effect:non-scaling-stroke!important;
+}
+
+/* Tapa a borda horizontal do painel por baixo da elevação,
+   evitando que a linha dourada atravesse o ressalto. */
+.chef-top-shape::after{
+  content:""!important;
+  position:absolute!important;
+  left:65px!important;
+  right:65px!important;
+  bottom:7px!important;
+  height:3px!important;
+  background:#1a1009!important;
+  z-index:1!important;
+}
+
+/* O ícone fica abaixo da curva, já dentro da zona castanha. */
+.chef-top-icon{
+  position:absolute!important;
+  left:50%!important;
+  top:35px!important;
+  transform:translateX(-50%)!important;
+  width:23px!important;
+  height:23px!important;
+  object-fit:contain!important;
+  display:block!important;
+  z-index:3!important;
+}
+
+/* espaço suficiente entre o ícone e o título */
+.chef-panel-head{
+  padding-top:20px!important;
+}
+
+@media(max-width:600px){
+  .chef-top-shape{
+    width:180px!important;
+    height:38px!important;
+    top:-30px!important;
+  }
+  .chef-top-shape-svg{
+    width:180px!important;
+    height:38px!important;
+  }
+  .chef-top-shape::after{
+    left:53px!important;
+    right:53px!important;
+    bottom:6px!important;
+  }
+  .chef-top-icon{
+    top:31px!important;
+    width:21px!important;
+    height:21px!important;
+  }
+}
+
+/* V21 */
+.chef-top-shape,.chef-top-bump,.chef-crown,.chef-icon,.chef-hat-icon,.chef-title-ornament,.chef-tagline{
+  display:none!important;
+}
+.chef-panel{
+  overflow:hidden!important;
+  border-top:1px solid #b98033!important;
+  padding-top:28px!important;
+}
+.chef-panel::before,.chef-panel::after{
+  content:none!important;
+  display:none!important;
+}
+.chef-panel-head{
+  width:100%!important;
+  max-width:none!important;
+  margin:0 auto 24px!important;
+  padding:0!important;
+  text-align:center!important;
+}
+.chef-title-row{
+  display:flex!important;
+  width:100%!important;
+  justify-content:center!important;
+  align-items:flex-end!important;
+  gap:14px!important;
+  flex-wrap:wrap!important;
+}
+.chef-title-main{
+  color:#fff!important;
+  font-family:Georgia,"Times New Roman",serif!important;
+  font-size:clamp(42px,4.5vw,62px)!important;
+  font-weight:700!important;
+  line-height:.95!important;
+}
+.chef-title-script{
+  color:#d8aa5f!important;
+  font-family:"Segoe Print","Bradley Hand","Comic Sans MS",cursive!important;
+  font-size:clamp(34px,4vw,54px)!important;
+  font-weight:400!important;
+  line-height:.95!important;
+  transform:none!important;
+}
+.chef-title-rule{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:9px!important;
+  width:260px!important;
+  max-width:60%!important;
+  margin:13px auto 0!important;
+  color:#d8aa5f!important;
+}
+.chef-title-rule span{
+  flex:1!important;height:1px!important;
+  background:linear-gradient(90deg,transparent,#d8aa5f)!important;
+}
+.chef-title-rule span:last-child{
+  background:linear-gradient(90deg,#d8aa5f,transparent)!important;
+}
+.chef-title-rule b{font-size:8px!important;line-height:1!important}
+.restaurant-logo,.nav-logo img{object-fit:contain!important}
+@media(max-width:700px){
+  .chef-title-row{gap:8px!important}
+  .chef-title-main{font-size:38px!important}
+  .chef-title-script{font-size:32px!important}
+  .chef-title-rule{width:190px!important}
+}
+
+
+/* ==========================================================
+   V22 — CTA Tripadvisor e remoção do acesso ao admin
+   ========================================================== */
+
+/* HOME */
+.home-review-cta{
+  margin-top:24px;
+  display:flex;
+  justify-content:flex-start;
+}
+
+.tripadvisor-review-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 16px;
+  border:1px solid rgba(216,170,95,.62);
+  border-radius:16px;
+  background:rgba(17,12,8,.68);
+  color:#fff;
+  text-decoration:none;
+  backdrop-filter:blur(8px);
+  box-shadow:0 10px 28px rgba(0,0,0,.16);
+  transition:transform .16s ease, border-color .16s ease, background .16s ease;
+}
+
+.tripadvisor-review-btn:hover{
+  transform:translateY(-2px);
+  border-color:#d8aa5f;
+  background:rgba(27,18,11,.82);
+}
+
+.tripadvisor-review-icon{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:38px;
+  height:38px;
+  flex:0 0 38px;
+  border-radius:50%;
+  background:#d8aa5f;
+  color:#21170f;
+  font-size:20px;
+  font-weight:900;
+}
+
+.tripadvisor-review-btn strong{
+  display:block;
+  font-size:14px;
+  line-height:1.2;
+}
+
+.tripadvisor-review-btn small{
+  display:block;
+  margin-top:3px;
+  color:#e7dbce;
+  font-size:12px;
+}
+
+/* MENU FOOTER */
+.footer-row{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:20px!important;
+}
+
+.footer-tripadvisor-review{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:#e6bd73!important;
+  text-decoration:none;
+  font-weight:700;
+  transition:color .15s ease, transform .15s ease;
+}
+
+.footer-tripadvisor-review:hover{
+  color:#fff0cf!important;
+  transform:translateY(-1px);
+}
+
+.footer-tripadvisor-icon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  border:1px solid #b98033;
+  color:#d8aa5f;
+  font-size:13px;
+}
+
+@media(max-width:700px){
+  .home-review-cta{
+    justify-content:center;
+  }
+
+  .tripadvisor-review-btn{
+    width:100%;
+    max-width:340px;
+  }
+
+  .footer-row{
+    flex-direction:column!important;
+    align-items:flex-start!important;
+  }
+
+  .footer-tripadvisor-review{
+    align-self:flex-end;
+  }
+}
+
+.social-icon-bar{display:flex!important;align-items:center!important;gap:9px!important;flex-wrap:nowrap!important;visibility:visible!important;opacity:1!important}
+.social-icon-btn{width:40px!important;height:40px!important;min-width:40px!important;min-height:40px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border:1px solid rgba(216,170,95,.62)!important;border-radius:50%!important;background:rgba(18,12,8,.65)!important;color:#f2d295!important;text-decoration:none!important}
+.social-icon-btn img{width:21px!important;height:21px!important;display:block!important;filter:sepia(1) saturate(.8) brightness(1.45)!important}
+.footer-social-area{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:16px!important;margin-left:auto!important}
+@media(max-width:700px){.social-icon-bar{display:flex!important;visibility:visible!important;opacity:1!important}.social-icon-btn{width:38px!important;height:38px!important;min-width:38px!important;min-height:38px!important}.footer-social-area{width:100%!important;flex-direction:column!important;align-items:flex-end!important;gap:10px!important}}
+
+
+/* ==========================================================
+   V25 — correção de layout da home / redes sociais
+   ========================================================== */
+
+/* Barra superior: logo à esquerda, redes sociais à direita */
+.top{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:24px!important;
+  padding:22px 0!important;
+}
+
+.socials{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  margin-left:auto!important;
+  flex:0 0 auto!important;
+}
+
+/* Redes sociais nunca entram no grid dos idiomas */
+.top .social-icon-bar{
+  position:static!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:10px!important;
+  flex-wrap:nowrap!important;
+}
+
+/* Tamanho visual mais equilibrado no header */
+.top .social-icon-btn{
+  width:42px!important;
+  height:42px!important;
+  min-width:42px!important;
+  min-height:42px!important;
+  background:rgba(15,10,7,.55)!important;
+}
+
+/* Grid de idiomas: só contém bandeiras */
+.lang-grid{
+  display:grid!important;
+  grid-template-columns:repeat(7,minmax(104px,1fr))!important;
+  gap:10px!important;
+  margin-top:34px!important;
+  align-items:stretch!important;
+}
+
+.flag-card{
+  min-width:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+
+/* A home não precisa de ficar excessivamente estreita */
+.hero-copy{
+  max-width:900px!important;
+}
+
+/* Tablet */
+@media(max-width:1000px){
+  .lang-grid{
+    grid-template-columns:repeat(4,minmax(110px,1fr))!important;
+  }
+}
+
+/* Telemóvel / vertical */
+@media(max-width:700px){
+  .top{
+    align-items:flex-start!important;
+    padding:16px 0!important;
+  }
+
+  .top .logo{
+    height:56px!important;
+    max-width:170px!important;
+  }
+
+  .socials{
+    display:flex!important;
+    visibility:visible!important;
+    opacity:1!important;
+  }
+
+  .top .social-icon-bar{
+    display:flex!important;
+    gap:7px!important;
+    visibility:visible!important;
+    opacity:1!important;
+  }
+
+  .top .social-icon-btn{
+    width:36px!important;
+    height:36px!important;
+    min-width:36px!important;
+    min-height:36px!important;
+  }
+
+  .top .social-icon-btn img{
+    width:19px!important;
+    height:19px!important;
+  }
+
+  .hero-copy{
+    padding:48px 0 70px!important;
+  }
+
+  .hero-copy h1{
+    font-size:clamp(46px,13vw,68px)!important;
+  }
+
+  .lang-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+  }
+
+  .flag-card{
+    width:100%!important;
+    min-height:92px!important;
+  }
+}
+
+/* Muito estreito: manter os ícones visíveis sem colidir com o logo */
+@media(max-width:420px){
+  .top{
+    gap:10px!important;
+  }
+
+  .top .logo{
+    height:50px!important;
+    max-width:125px!important;
+  }
+
+  .top .social-icon-bar{
+    gap:5px!important;
+  }
+
+  .top .social-icon-btn{
+    width:32px!important;
+    height:32px!important;
+    min-width:32px!important;
+    min-height:32px!important;
+  }
+
+  .lang-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+
+
+/* ==========================================================
+   V26 — ícones sociais com cores próprias das plataformas
+   ========================================================== */
+
+.social-icon-btn{
+  background:rgba(12,9,7,.72)!important;
+  border:1px solid rgba(255,255,255,.18)!important;
+  box-shadow:0 6px 16px rgba(0,0,0,.18)!important;
+  overflow:hidden!important;
+}
+
+.social-icon-btn img{
+  width:28px!important;
+  height:28px!important;
+  display:block!important;
+  filter:none!important;
+}
+
+.social-icon-btn:hover{
+  transform:translateY(-2px) scale(1.04)!important;
+  border-color:rgba(255,255,255,.38)!important;
+}
+
+@media(max-width:700px){
+  .social-icon-btn img{
+    width:25px!important;
+    height:25px!important;
+  }
+}
