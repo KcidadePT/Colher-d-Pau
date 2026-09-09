@@ -6,6 +6,18 @@
   let currentIndex=0;
   let data=JSON.parse(JSON.stringify(window.MENU_DATA));
 
+  const SESSION_EDITS_KEY="colherdpau_session_edited";
+  const ACTIVE_TYPE_KEY="colherdpau_active_type";
+  const INTERNAL_RELOAD_KEY="colherdpau_internal_reload";
+
+  function rememberEditedItem(type,index){
+    let state={food:[],beverages:[],chef:[]};
+    try{state={...state,...JSON.parse(sessionStorage.getItem(SESSION_EDITS_KEY)||"{}")} }catch{}
+    state[type]=Array.from(new Set([...(state[type]||[]),Number(index)]));
+    sessionStorage.setItem(SESSION_EDITS_KEY,JSON.stringify(state));
+    sessionStorage.setItem(ACTIVE_TYPE_KEY,type);
+  }
+
   function setStatus(text,kind=""){
     const el=$("githubSyncStatus");
     if(!el)return;
@@ -63,7 +75,7 @@
     let arr=currentType==="food"?data.food:currentType==="beverages"?data.beverages:data.chefSuggestion.items;
     const x=arr[currentIndex];
     x.available=$("available").checked;
-    x.image=$("image").value;
+    x.image=$("image").value.trim();
     if(currentType==="food"){
       x.category=$("category").value;x.code=$("code").value.trim();x.name=x.name||{};x.name.pt=$("name_pt").value.trim();x.description=x.description||{};x.description.pt=$("desc_pt").value.trim();x.price=parseFloat($("price").value)||0;x.allergens=$("allergens").value.split(",").map(s=>s.trim()).filter(Boolean);x.tags=$("tags").value.split(",").map(s=>s.trim()).filter(Boolean);x.featured=$("featured").checked;
     }else if(currentType==="beverages"){
@@ -130,6 +142,9 @@
           setStatus("Gravação local ativa");
         }
 
+        rememberEditedItem(currentType,currentIndex);
+        sessionStorage.setItem(INTERNAL_RELOAD_KEY,"1");
+        sessionStorage.setItem(ACTIVE_TYPE_KEY,currentType);
         setTimeout(()=>location.reload(),300);
       }catch(e){
         localStorage.setItem("colherdpau_menu_data",JSON.stringify(data));
