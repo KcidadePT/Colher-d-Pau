@@ -4,16 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Gestão · Colher d’Pau</title>
-  <link rel="stylesheet" href="css/style.css?v=35">
+  <link rel="stylesheet" href="css/style.css?v=36">
+  <link rel="stylesheet" href="css/v36.css?v=36">
 </head>
 <body>
 <div class="admin-wrap shell">
   <div class="admin-head">
     <div>
-      <div class="eyebrow">Backoffice local</div>
+      <div class="eyebrow">Backoffice</div>
       <h1>Gestão da carta</h1>
     </div>
-    <div class="admin-actions"><a class="btn light" href="index.html">Ver site</a></div>
+    <div class="admin-actions">
+      <div class="github-sync-status" id="githubSyncStatus">GitHub não ligado</div>
+      <button class="btn light" id="connectGitHub" type="button">Ligar GitHub</button>
+      <a class="btn light" href="index.html">Ver site</a>
+    </div>
   </div>
 
   <div class="admin-tabs">
@@ -54,18 +59,26 @@
       <div class="field" id="glassField"><label>Preço copo (€)</label><input id="glass" type="number" step=".01"></div>
       <div class="field" id="regionField"><label>Região</label><input id="region"></div>
       <div class="field"><label>Fotografia (caminho ou URL)</label><input id="image"></div>
-      <div class="field"><label>Carregar nova fotografia</label><div class="image-upload-row"><input id="imageUpload" type="file" accept="image/*"><button class="btn light" id="clearUploadedImage" type="button">Limpar seleção</button></div><small class="field-help">A imagem é otimizada automaticamente. Ao selecionar um ficheiro, o campo acima é atualizado para assets/dishes/nome-da-fotografia.jpg.</small></div>
+      <div class="field">
+        <label>Carregar nova fotografia</label>
+        <div class="image-upload-row"><input id="imageUpload" type="file" accept="image/*"><button class="btn light" id="clearUploadedImage" type="button">Limpar seleção</button></div>
+        <small class="field-help">A fotografia será otimizada e publicada em assets/dishes/ quando aplicar as alterações.</small>
+      </div>
       <div class="field full"><label>Pré-visualização</label><img id="preview" class="preview" alt=""></div>
       <div class="field" id="allergensField"><label>Alergénios (separados por vírgula)</label><input id="allergens" placeholder="glúten, leite, ovos"></div>
       <div class="field" id="tagsField"><label>Etiquetas</label><input id="tags" placeholder="vegetariano, picante, sem glúten"></div>
       <div class="field" id="featuredField"><label><input type="checkbox" id="featured"> Item em destaque</label></div>
       <div class="field"><label><input type="checkbox" id="available"> Disponível na carta</label></div>
     </div></div>
-    <div class="modal-footer"><button class="btn light" id="cancelModal">Cancelar</button><button class="btn primary" id="apply">Aplicar alterações</button></div>
+    <div class="modal-footer">
+      <span class="publish-state" id="publishState" aria-live="polite"></span>
+      <button class="btn light" id="cancelModal">Cancelar</button>
+      <button class="btn primary" id="apply">Aplicar alterações</button>
+    </div>
   </section>
 </div>
 
-<script src="js/data.js?v=35"></script>
-<script src="js/admin.js?v=35"></script>
+<script src="js/data.js?v=36"></script>
+<script src="js/admin.js?v=36"></script>
 </body>
 </html>
