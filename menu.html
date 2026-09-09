@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Colher d’Pau · A nossa carta</title>
-  <link rel="stylesheet" href="css/style.css?v=42">
-  <link rel="stylesheet" href="css/v36.css?v=42">
+  <link rel="stylesheet" href="css/style.css?v=43">
+  <link rel="stylesheet" href="css/v36.css?v=43">
 </head>
 <body>
 <header class="menu-hero">
@@ -31,14 +31,10 @@
   dataScript.src='js/data.js?v='+stamp;
   dataScript.onload=function(){
     const menuScript=document.createElement('script');
-    menuScript.src='js/menu.js?v=42';
+    menuScript.src='js/menu.js?v=43';
     document.body.appendChild(menuScript);
   };
   document.body.appendChild(dataScript);
-
-  window.addEventListener('storage',function(e){
-    if(e.key==='colherdpau_menu_data') location.reload();
-  });
 
   const btn=document.getElementById('scrollTopBtn');
   if(btn){
