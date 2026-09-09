@@ -31,7 +31,7 @@
     try{
       const res=await fetch(apiUrl+"/health",{method:"POST",headers:{"X-Admin-Key":adminKey}});
       const body=await res.json().catch(()=>({}));
-      if(!res.ok||!body.ok) throw new Error(body.error||"Não foi possível ligar ao backoffice.");
+      if(!res.ok||!body.ok)throw new Error(body.error||"Não foi possível ligar ao backoffice.");
       setStatus("Backoffice ligado","connected");
       $("connectGitHub").textContent="Backoffice ligado";
       return true;
@@ -41,9 +41,7 @@
     }
   }
 
-  function backendConfigured(){
-    return !!(apiUrl&&adminKey);
-  }
+  function backendConfigured(){return !!(apiUrl&&adminKey)}
 
   function safeImageFileName(name){
     const raw=(name||"fotografia").replace(/\.[^.]+$/,"");
@@ -76,6 +74,14 @@
     return x;
   }
 
+  function cleanDataForPublish(source){
+    const copy=JSON.parse(JSON.stringify(source));
+    for(const x of copy.food||[])delete x.imageData;
+    for(const x of copy.beverages||[])delete x.imageData;
+    for(const x of copy.chefSuggestion?.items||[])delete x.imageData;
+    return copy;
+  }
+
   document.addEventListener("click",e=>{
     const row=e.target.closest?.("#rows tr[data-i]");
     if(row){currentIndex=Number(row.dataset.i);currentType=document.querySelector(".admin-tab.active")?.dataset.type||"food"}
@@ -86,23 +92,17 @@
   const connect=$("connectGitHub");
   if(connect){
     connect.textContent=backendConfigured()?"Backoffice ligado":"Configurar publicação";
-    setStatus(backendConfigured()?"Backoffice ligado":"Publicação por configurar",backendConfigured()?"connected":"");
+    setStatus(backendConfigured()?"Backoffice ligado":"Gravação local ativa",backendConfigured()?"connected":"");
     connect.onclick=configureBackend;
   }
 
   const apply=$("apply");
   if(apply){
     apply.onclick=async()=>{
-      if(!backendConfigured()){
-        setPublish("Configure primeiro a publicação no botão “Configurar publicação”.","error");
-        setStatus("Publicação por configurar","error");
-        return;
-      }
-
       const old=apply.textContent;
       apply.disabled=true;
-      apply.textContent="A publicar…";
-      setPublish("A publicar…","busy");
+      apply.textContent=backendConfigured()?"A publicar…":"A guardar…";
+      setPublish(backendConfigured()?"A publicar…":"A guardar…","busy");
       try{
         const item=applyFields();
         let image=null;
@@ -112,18 +112,29 @@
           const path="assets/dishes/"+safeImageFileName(file.name);
           $("image").value=path;
           item.image=path;
+          item.imageData=optimized;
           image={path,base64:optimized.split(",")[1]};
         }
-        const payload={data,image};
-        const res=await fetch(apiUrl+"/publish",{method:"POST",headers:{"Content-Type":"application/json","X-Admin-Key":adminKey},body:JSON.stringify(payload)});
-        const body=await res.json().catch(()=>({}));
-        if(!res.ok||!body.ok) throw new Error(body.error||"Não foi possível publicar.");
-        setPublish("Publicado.","ok");
-        setStatus("Backoffice sincronizado","connected");
-        setTimeout(()=>location.reload(),350);
+
+        localStorage.setItem("colherdpau_menu_data",JSON.stringify(data));
+
+        if(backendConfigured()){
+          const payload={data:cleanDataForPublish(data),image};
+          const res=await fetch(apiUrl+"/publish",{method:"POST",headers:{"Content-Type":"application/json","X-Admin-Key":adminKey},body:JSON.stringify(payload)});
+          const body=await res.json().catch(()=>({}));
+          if(!res.ok||!body.ok)throw new Error(body.error||"Não foi possível publicar.");
+          setPublish("Publicado.","ok");
+          setStatus("Backoffice sincronizado","connected");
+        }else{
+          setPublish("Guardado neste navegador.","ok");
+          setStatus("Gravação local ativa");
+        }
+
+        setTimeout(()=>location.reload(),300);
       }catch(e){
-        setPublish(e.message||"Não foi possível publicar.","error");
-        if(/credenciais/i.test(e.message||"")){sessionStorage.removeItem("colherdpau_admin_key");adminKey="";setStatus("Publicação por configurar","error");}
+        localStorage.setItem("colherdpau_menu_data",JSON.stringify(data));
+        setPublish((e.message||"Não foi possível publicar.")+" As alterações ficaram guardadas neste navegador.","error");
+        if(/credenciais/i.test(e.message||"")){sessionStorage.removeItem("colherdpau_admin_key");adminKey="";setStatus("Gravação local ativa");}
       }finally{
         apply.disabled=false;
         apply.textContent=old;
