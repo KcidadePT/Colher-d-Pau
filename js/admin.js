@@ -161,6 +161,7 @@ function openEditor(i){
     $("featured").checked=false;
   }
 
+  $("imageUpload").value="";
   preview();
   $("editorModal").classList.add("open");
   $("editorModal").setAttribute("aria-hidden","false");
@@ -179,6 +180,59 @@ function preview(){
 }
 
 $("image").oninput=preview;
+
+async function fileToOptimizedDataUrl(file){
+  if(!file) return null;
+  if(!file.type.startsWith("image/")) throw new Error("O ficheiro selecionado não é uma imagem.");
+
+  const dataUrl=await new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+    reader.onload=()=>resolve(reader.result);
+    reader.onerror=()=>reject(new Error("Não foi possível ler a imagem."));
+    reader.readAsDataURL(file);
+  });
+
+  const img=await new Promise((resolve,reject)=>{
+    const el=new Image();
+    el.onload=()=>resolve(el);
+    el.onerror=()=>reject(new Error("Não foi possível abrir a imagem."));
+    el.src=dataUrl;
+  });
+
+  const maxSide=1600;
+  let w=img.naturalWidth, h=img.naturalHeight;
+  if(Math.max(w,h)>maxSide){
+    const scale=maxSide/Math.max(w,h);
+    w=Math.round(w*scale);
+    h=Math.round(h*scale);
+  }
+
+  const canvas=document.createElement("canvas");
+  canvas.width=w;
+  canvas.height=h;
+  const ctx=canvas.getContext("2d");
+  ctx.drawImage(img,0,0,w,h);
+  return canvas.toDataURL("image/jpeg",0.86);
+}
+
+$("imageUpload").onchange=async()=>{
+  const file=$("imageUpload").files?.[0];
+  if(!file) return;
+  try{
+    const optimized=await fileToOptimizedDataUrl(file);
+    $("image").value=optimized;
+    preview();
+  }catch(err){
+    alert(err.message||"Não foi possível carregar a imagem.");
+    $("imageUpload").value="";
+  }
+};
+
+$("clearUploadedImage").onclick=()=>{
+  $("imageUpload").value="";
+  $("image").value="";
+  preview();
+};
 
 $("apply").onclick=()=>{
   let arr;

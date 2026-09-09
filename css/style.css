@@ -1988,3 +1988,67 @@ footer{
     height:25px!important;
   }
 }
+
+
+/* ==========================================================
+   V27 — botão flutuante "voltar ao topo"
+   ========================================================== */
+.scroll-top-btn{
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  z-index:9999;
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  border:1px solid rgba(213,164,76,.85);
+  background:rgba(20,13,8,.94);
+  color:#e2ad54;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:Georgia, "Times New Roman", serif;
+  font-size:31px;
+  line-height:1;
+  cursor:pointer;
+  box-shadow:0 8px 24px rgba(0,0,0,.32);
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(12px);
+  transition:opacity .22s ease, transform .22s ease, visibility .22s ease,
+             background .18s ease, color .18s ease;
+}
+
+.scroll-top-btn.is-visible{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+
+.scroll-top-btn:hover{
+  background:#d5a44c;
+  color:#17100b;
+  transform:translateY(-3px);
+}
+
+.scroll-top-btn:focus-visible{
+  outline:2px solid #f1c46e;
+  outline-offset:3px;
+}
+
+@media(max-width:700px){
+  .scroll-top-btn{
+    right:16px;
+    bottom:16px;
+    width:48px;
+    height:48px;
+    font-size:28px;
+  }
+}
+
+
+/* V28 - upload de fotografias no editor */
+.image-upload-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.image-upload-row input[type="file"]{flex:1;min-width:240px;padding:9px;background:#fff;border:1px solid var(--line);border-radius:10px}
+.field-help{display:block;margin-top:6px;color:#756b61;font-size:12px;line-height:1.4}
+@media(max-width:700px){.image-upload-row{align-items:stretch;flex-direction:column}.image-upload-row input[type="file"]{min-width:0;width:100%}.image-upload-row .btn{width:100%}}
