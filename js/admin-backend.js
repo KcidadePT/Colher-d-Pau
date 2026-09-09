@@ -41,9 +41,8 @@
     }
   }
 
-  async function ensureBackend(){
-    if(!apiUrl||!adminKey) return configureBackend();
-    return true;
+  function backendConfigured(){
+    return !!(apiUrl&&adminKey);
   }
 
   function safeImageFileName(name){
@@ -86,20 +85,25 @@
 
   const connect=$("connectGitHub");
   if(connect){
-    connect.textContent=apiUrl&&adminKey?"Backoffice ligado":"Configurar publicação";
-    setStatus(apiUrl&&adminKey?"Backoffice ligado":"Publicação por configurar",apiUrl&&adminKey?"connected":"");
+    connect.textContent=backendConfigured()?"Backoffice ligado":"Configurar publicação";
+    setStatus(backendConfigured()?"Backoffice ligado":"Publicação por configurar",backendConfigured()?"connected":"");
     connect.onclick=configureBackend;
   }
 
   const apply=$("apply");
   if(apply){
     apply.onclick=async()=>{
+      if(!backendConfigured()){
+        setPublish("Configure primeiro a publicação no botão “Configurar publicação”.","error");
+        setStatus("Publicação por configurar","error");
+        return;
+      }
+
       const old=apply.textContent;
       apply.disabled=true;
       apply.textContent="A publicar…";
       setPublish("A publicar…","busy");
       try{
-        if(!await ensureBackend()) throw new Error("Backoffice não configurado.");
         const item=applyFields();
         let image=null;
         const file=$("imageUpload").files?.[0];
@@ -119,7 +123,7 @@
         setTimeout(()=>location.reload(),350);
       }catch(e){
         setPublish(e.message||"Não foi possível publicar.","error");
-        if(/credenciais/i.test(e.message||"")){sessionStorage.removeItem("colherdpau_admin_key");adminKey="";}
+        if(/credenciais/i.test(e.message||"")){sessionStorage.removeItem("colherdpau_admin_key");adminKey="";setStatus("Publicação por configurar","error");}
       }finally{
         apply.disabled=false;
         apply.textContent=old;
