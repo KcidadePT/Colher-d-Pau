@@ -1,0 +1,25 @@
+/* Fotografias de bebidas/garrafas: mostrar a imagem completa sem cortar. */
+#menuContent .dish img.drink-image{
+  width:92px!important;
+  height:132px!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  background:#fff!important;
+  border-radius:12px!important;
+  padding:7px!important;
+  box-sizing:border-box!important;
+  cursor:zoom-in!important;
+}
+
+/* Mantém fotografias de pratos com o comportamento existente. */
+#menuContent .dish img.dish-image:not(.drink-image){
+  object-fit:cover;
+}
+
+@media(max-width:700px){
+  #menuContent .dish img.drink-image{
+    width:78px!important;
+    height:116px!important;
+    padding:6px!important;
+  }
+}
