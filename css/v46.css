@@ -1,0 +1,61 @@
+/* V46 - barra flutuante independente de categorias */
+.floating-category-bar{
+  position:fixed;
+  top:14px;
+  left:50%;
+  transform:translate(-50%,-18px);
+  z-index:1500;
+  display:flex;
+  gap:8px;
+  max-width:min(1120px,calc(100vw - 32px));
+  padding:9px 10px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  white-space:nowrap;
+  scrollbar-width:none;
+  background:rgba(18,15,12,.92);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:999px;
+  box-shadow:0 10px 30px rgba(0,0,0,.22);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .18s ease,transform .18s ease,visibility .18s ease;
+}
+.floating-category-bar::-webkit-scrollbar{display:none}
+.floating-category-bar.is-visible{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transform:translate(-50%,0);
+}
+.floating-cat-btn{
+  flex:0 0 auto;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  border-radius:999px;
+  padding:9px 13px;
+  font:700 13px/1 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  cursor:pointer;
+}
+.floating-cat-btn.active{
+  background:#c89c52;
+  border-color:#c89c52;
+  color:#181410;
+}
+@media(max-width:700px){
+  .floating-category-bar{
+    top:10px;
+    left:12px;
+    right:12px;
+    width:auto;
+    max-width:none;
+    transform:translateY(-18px);
+    border-radius:18px;
+  }
+  .floating-category-bar.is-visible{transform:translateY(0)}
+  .floating-cat-btn{padding:9px 12px;font-size:12px}
+}
