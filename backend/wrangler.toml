@@ -1,0 +1,8 @@
+name = "colher-d-pau-admin-api"
+main = "worker.js"
+compatibility_date = "2026-09-09"
+
+# Definir como secrets no Cloudflare Worker:
+# GITHUB_TOKEN  -> token GitHub com Contents: Read and write apenas neste repositorio
+# ADMIN_KEY     -> palavra-passe longa usada pelo backoffice
+# ALLOWED_ORIGIN -> https://kcidadept.github.io
