@@ -4,7 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Colher d’Pau · A nossa carta</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=36">
+  <link rel="stylesheet" href="css/beverage-images.css?v=36">
 </head>
 <body>
 <header class="menu-hero">
@@ -60,8 +61,6 @@
     </div>
 
     <div class="chef-grid" id="chefGrid"></div>
-
-      
     </div>
   </section>
 
@@ -89,31 +88,20 @@
   </div>
 </footer>
 
-<script src="js/data.js"></script>
-<script src="js/menu.js"></script>
+<script src="js/data.js?v=36"></script>
+<script src="js/menu.js?v=36"></script>
+<script src="js/beverage-images.js?v=36"></script>
 
-<button id="scrollTopBtn" class="scroll-top-btn" type="button"
-        aria-label="Voltar ao topo" title="Voltar ao topo">
-  <span aria-hidden="true">↑</span>
-</button>
-
+<button id="scrollTopBtn" class="scroll-top-btn" type="button" aria-label="Voltar ao topo" title="Voltar ao topo"><span aria-hidden="true">↑</span></button>
 <script>
 (function () {
   const btn = document.getElementById('scrollTopBtn');
   if (!btn) return;
-
-  const updateScrollTopButton = () => {
-    btn.classList.toggle('is-visible', window.scrollY > 320);
-  };
-
+  const updateScrollTopButton = () => btn.classList.toggle('is-visible', window.scrollY > 320);
   window.addEventListener('scroll', updateScrollTopButton, { passive: true });
   updateScrollTopButton();
-
-  btn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 })();
 </script>
-
 </body>
 </html>
