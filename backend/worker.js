@@ -3,21 +3,22 @@ const REPO = "Colher-d-Pau";
 const BRANCH = "main";
 const DATA_PATH = "js/data.js";
 
-function cors(origin, allowedOrigin) {
-  const allowed = origin === allowedOrigin ? origin : allowedOrigin;
+function cors() {
   return {
-    "Access-Control-Allow-Origin": allowed,
+    "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "POST,OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type,X-Admin-Key",
-    "Access-Control-Max-Age": "86400",
-    "Vary": "Origin"
+    "Access-Control-Max-Age": "86400"
   };
 }
 
-function json(body, status, origin, env) {
+function json(body, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
-    headers: { "Content-Type": "application/json; charset=utf-8", ...cors(origin, env.ALLOWED_ORIGIN) }
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      ...cors()
+    }
   });
 }
 
@@ -47,7 +48,11 @@ async function getFile(path, env) {
   const encoded = path.split("/").map(encodeURIComponent).join("/");
   const res = await github(`/contents/${encoded}?ref=${encodeURIComponent(BRANCH)}`, env);
   if (res.status === 404) return null;
-  if (!res.ok) throw new Error(`Não foi possível ler ${path}.`);
+  if (!res.ok) {
+    let detail = "";
+    try { detail = (await res.json()).message || ""; } catch {}
+    throw new Error(`Não foi possível ler ${path}. ${detail}`.trim());
+  }
   return await res.json();
 }
 
@@ -56,16 +61,20 @@ async function putFile(path, base64, message, env) {
   const encoded = path.split("/").map(encodeURIComponent).join("/");
   const body = { message, content: base64, branch: BRANCH };
   if (current?.sha) body.sha = current.sha;
+
   const res = await github(`/contents/${encoded}`, env, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body)
   });
+
   if (!res.ok) {
     let detail = "";
     try { detail = (await res.json()).message || ""; } catch {}
     throw new Error(`Falha ao gravar ${path}. ${detail}`.trim());
   }
+
+  return await res.json();
 }
 
 function cleanData(data) {
@@ -78,35 +87,64 @@ function cleanData(data) {
 
 export default {
   async fetch(request, env) {
-    const origin = request.headers.get("Origin") || "";
-    if (request.method === "OPTIONS") return new Response(null, { headers: cors(origin, env.ALLOWED_ORIGIN) });
-    if (origin !== env.ALLOWED_ORIGIN) return json({ ok:false, error:"Origem não autorizada." }, 403, origin, env);
-    if (request.method !== "POST") return json({ ok:false, error:"Método inválido." }, 405, origin, env);
-    if (!env.GITHUB_TOKEN || !env.ADMIN_KEY || !env.ALLOWED_ORIGIN) return json({ ok:false, error:"Backend não configurado." }, 500, origin, env);
-    if (request.headers.get("X-Admin-Key") !== env.ADMIN_KEY) return json({ ok:false, error:"Credenciais inválidas." }, 401, origin, env);
+    if (request.method === "OPTIONS") {
+      return new Response(null, { status: 204, headers: cors() });
+    }
+
+    if (request.method !== "POST") {
+      return json({ ok: false, error: "Método inválido." }, 405);
+    }
+
+    if (!env.GITHUB_TOKEN || !env.ADMIN_KEY) {
+      return json({ ok: false, error: "Backend não configurado." }, 500);
+    }
+
+    if (request.headers.get("X-Admin-Key") !== env.ADMIN_KEY) {
+      return json({ ok: false, error: "Credenciais inválidas." }, 401);
+    }
 
     try {
       const url = new URL(request.url);
-      if (url.pathname === "/health") return json({ ok:true }, 200, origin, env);
-      if (url.pathname !== "/publish") return json({ ok:false, error:"Endpoint inexistente." }, 404, origin, env);
+
+      if (url.pathname === "/health") {
+        return json({ ok: true, service: "colher-d-pau-admin-api" });
+      }
+
+      if (url.pathname !== "/publish") {
+        return json({ ok: false, error: "Endpoint inexistente." }, 404);
+      }
 
       const payload = await request.json();
-      if (!payload?.data) return json({ ok:false, error:"Dados da carta em falta." }, 400, origin, env);
+      if (!payload?.data) {
+        return json({ ok: false, error: "Dados da carta em falta." }, 400);
+      }
 
       if (payload.image?.path && payload.image?.base64) {
         if (!/^assets\/dishes\/[a-z0-9._-]+\.jpg$/i.test(payload.image.path)) {
-          return json({ ok:false, error:"Caminho de imagem inválido." }, 400, origin, env);
+          return json({ ok: false, error: "Caminho de imagem inválido." }, 400);
         }
-        await putFile(payload.image.path, payload.image.base64, `Atualizar fotografia ${payload.image.path.split('/').pop()}`, env);
+
+        await putFile(
+          payload.image.path,
+          payload.image.base64,
+          `Atualizar fotografia ${payload.image.path.split("/").pop()}`,
+          env
+        );
       }
 
       const clean = cleanData(payload.data);
       const dataFile = `window.MENU_DATA = ${JSON.stringify(clean, null, 2)};\n`;
-      await putFile(DATA_PATH, encodeUtf8Base64(dataFile), "Atualizar carta pelo backoffice", env);
 
-      return json({ ok:true }, 200, origin, env);
+      await putFile(
+        DATA_PATH,
+        encodeUtf8Base64(dataFile),
+        "Atualizar carta pelo backoffice",
+        env
+      );
+
+      return json({ ok: true });
     } catch (error) {
-      return json({ ok:false, error:error?.message || "Erro interno." }, 500, origin, env);
+      return json({ ok: false, error: error?.message || "Erro interno." }, 500);
     }
   }
 };
