@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Gestão · Colher d’Pau</title>
-  <link rel="stylesheet" href="css/style.css?v=33">
+  <link rel="stylesheet" href="css/style.css?v=34">
 </head>
 <body>
 <div class="admin-wrap shell">
@@ -15,7 +15,7 @@
     </div>
     <div class="admin-actions">
       <a class="btn light" href="index.html">Ver site</a>
-      <button class="btn primary" id="save">Guardar</button>
+      <button class="btn primary" id="save" type="button" hidden>Guardar</button>
     </div>
   </div>
 
@@ -82,7 +82,16 @@
   </section>
 </div>
 
-<script src="js/data.js?v=33"></script>
-<script src="js/admin.js?v=33"></script>
+<script src="js/data.js?v=34"></script>
+<script src="js/admin.js?v=34"></script>
+<script>
+(function(){
+  const apply=document.getElementById('apply');
+  const save=document.getElementById('save');
+  if(apply&&save){
+    apply.addEventListener('click',()=>setTimeout(()=>save.click(),0));
+  }
+})();
+</script>
 </body>
 </html>
