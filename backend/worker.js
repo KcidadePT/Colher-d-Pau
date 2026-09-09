@@ -6,18 +6,22 @@ const DATA_PATH = "js/data.js";
 function cors() {
   return {
     "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "POST,OPTIONS",
+    "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type,X-Admin-Key",
     "Access-Control-Max-Age": "86400"
   };
 }
 
-function json(body, status = 200) {
+function json(body, status = 200, extraHeaders = {}) {
   return new Response(JSON.stringify(body), {
     status,
     headers: {
       "Content-Type": "application/json; charset=utf-8",
-      ...cors()
+      "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+      "Pragma": "no-cache",
+      "Expires": "0",
+      ...cors(),
+      ...extraHeaders
     }
   });
 }
@@ -29,6 +33,13 @@ function encodeUtf8Base64(text) {
     binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
   }
   return btoa(binary);
+}
+
+function decodeUtf8Base64(base64) {
+  const binary = atob(String(base64 || "").replace(/\s/g, ""));
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return new TextDecoder().decode(bytes);
 }
 
 async function github(path, env, options = {}) {
@@ -46,7 +57,9 @@ async function github(path, env, options = {}) {
 
 async function getFile(path, env) {
   const encoded = path.split("/").map(encodeURIComponent).join("/");
-  const res = await github(`/contents/${encoded}?ref=${encodeURIComponent(BRANCH)}`, env);
+  const res = await github(`/contents/${encoded}?ref=${encodeURIComponent(BRANCH)}&_=${Date.now()}`, env, {
+    cache: "no-store"
+  });
   if (res.status === 404) return null;
   if (!res.ok) {
     let detail = "";
@@ -85,10 +98,33 @@ function cleanData(data) {
   return copy;
 }
 
+async function readMenuData(env) {
+  const file = await getFile(DATA_PATH, env);
+  if (!file?.content) throw new Error("Ficheiro de dados da carta indisponível.");
+  const text = decodeUtf8Base64(file.content);
+  const firstBrace = text.indexOf("{");
+  const lastBrace = text.lastIndexOf("}");
+  if (firstBrace < 0 || lastBrace < firstBrace) throw new Error("Formato de dados da carta inválido.");
+  return JSON.parse(text.slice(firstBrace, lastBrace + 1));
+}
+
 export default {
   async fetch(request, env) {
     if (request.method === "OPTIONS") {
       return new Response(null, { status: 204, headers: cors() });
+    }
+
+    const url = new URL(request.url);
+
+    // Endpoint público, apenas de leitura. Serve sempre o data.js atual diretamente do GitHub.
+    if (request.method === "GET" && url.pathname === "/menu-data") {
+      try {
+        if (!env.GITHUB_TOKEN) return json({ ok: false, error: "Backend não configurado." }, 500);
+        const data = await readMenuData(env);
+        return json({ ok: true, data, fetchedAt: new Date().toISOString() });
+      } catch (error) {
+        return json({ ok: false, error: error?.message || "Erro interno." }, 500);
+      }
     }
 
     if (request.method !== "POST") {
@@ -104,8 +140,6 @@ export default {
     }
 
     try {
-      const url = new URL(request.url);
-
       if (url.pathname === "/health") {
         return json({ ok: true, service: "colher-d-pau-admin-api" });
       }
