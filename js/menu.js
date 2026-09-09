@@ -14,20 +14,7 @@
   const cats={...foodCats,...drinkCats};
   const escapeAttr=s=>String(s||"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 
-  async function loadFreshData(){
-    try{
-      const res=await fetch(WORKER_DATA_URL+"?_="+Date.now(),{cache:"no-store"});
-      const body=await res.json();
-      if(!res.ok||!body?.ok||!body?.data)throw new Error(body?.error||"Dados indisponíveis");
-      data=body.data;
-      window.MENU_DATA=body.data;
-      return true;
-    }catch(e){
-      console.warn("A usar dados locais da carta porque não foi possível obter a versão mais recente.",e);
-      return false;
-    }
-  }
-
+  async function loadFreshData(){try{const res=await fetch(WORKER_DATA_URL+"?_="+Date.now(),{cache:"no-store"});const body=await res.json();if(!res.ok||!body?.ok||!body?.data)throw new Error(body?.error||"Dados indisponíveis");data=body.data;window.MENU_DATA=body.data;return true}catch(e){console.warn("A usar dados locais da carta porque não foi possível obter a versão mais recente.",e);return false}}
   function applyHeader(){$("pageTitle").textContent=L.title;$("pageSubtitle").textContent=L.sub;$("foodBtn").textContent=L.food;$("drinkBtn").textContent=L.drinks;document.querySelectorAll(".menu-language-flags a").forEach(a=>a.classList.toggle("active",a.dataset.lang===lang))}
   function renderChefSuggestion(){const block=data.chefSuggestion,section=$("chefSuggestion");if(!block||block.enabled===false){section.hidden=true;return}const items=(block.items||[]).filter(x=>x.available!==false);if(!items.length){section.hidden=true;return}section.hidden=false;const parts=chefTitleParts[lang]||chefTitleParts.pt;$("chefTitleMain").textContent=parts.main;$("chefTitleScript").textContent=parts.script;const typeLabels={Entrada:{pt:"ENTRADA",en:"STARTER",fr:"ENTRÉE",es:"ENTRADA",de:"VORSPEISE",it:"ANTIPASTO",ru:"ЗАКУСКА"},Peixe:{pt:"PEIXE",en:"FISH",fr:"POISSON",es:"PESCADO",de:"FISCH",it:"PESCE",ru:"РЫБА"},Carne:{pt:"CARNE",en:"MEAT",fr:"VIANDE",es:"CARNE",de:"FLEISCH",it:"CARNE",ru:"МЯСО"}};$("chefGrid").innerHTML=items.map(item=>{const name=item.name?.[lang]||item.name?.pt||"",desc=item.description?.[lang]||item.description?.pt||"",itemType=typeLabels[item.type]?.[lang]||item.type||"",image=item.image||"assets/dish-placeholder.svg";return `<article class="chef-card"><div class="chef-card-header"><span class="chef-type">${itemType}</span><h3>${name}</h3></div><div class="chef-image-wrap"><img class="chef-image zoomable" src="${image}" data-full="${image}" data-caption="${escapeAttr(name)}" alt="${escapeAttr(name)}" onerror="this.onerror=null;this.src='assets/dish-placeholder.svg'"><div class="chef-price">${euro(item.price)}</div></div><div class="chef-card-body"><p>${desc}</p></div></article>`}).join("");wireImageZoom()}
   function renderCats(){const arr=type==="food"?data.food:data.beverages;const ks=[...new Set(arr.filter(x=>x.available!==false).map(x=>x.category))];$("categoryStrip").innerHTML=[["all",L.all],...ks.map(k=>[k,cats[k]||k])].map(([k,n])=>`<button class="cat-btn ${cat===k?"active":""}" data-c="${k}">${n}</button>`).join("");document.querySelectorAll(".cat-btn").forEach(b=>b.onclick=()=>{cat=b.dataset.c;renderCats();renderMenu()})}
@@ -38,22 +25,21 @@
   $("drinkBtn").onclick=()=>{type="beverages";cat="all";$("drinkBtn").classList.add("active");$("foodBtn").classList.remove("active");renderCats();renderMenu();requestAnimationFrame(()=>requestAnimationFrame(scrollToMenuArea))};
   $("lightboxClose").onclick=()=>{$("imageLightbox").classList.remove("open");document.body.classList.remove("modal-open")};$("imageLightbox").onclick=e=>{if(e.target===$("imageLightbox"))$("lightboxClose").click()};
 
-  await loadFreshData();
-  applyHeader();renderChefSuggestion();renderCats();renderMenu();
+  await loadFreshData();applyHeader();renderChefSuggestion();renderCats();renderMenu();
 
   let lastRefresh=0;
   async function refreshFromServer(){
-    const now=Date.now();
-    if(now-lastRefresh<1000)return;
-    lastRefresh=now;
-    const ok=await loadFreshData();
-    if(ok){
-      if(cat!=="all"){
-        const arr=type==="food"?data.food:data.beverages;
-        if(!arr.some(x=>x.available!==false&&x.category===cat))cat="all";
-      }
-      renderChefSuggestion();renderCats();renderMenu();
-    }
+    const now=Date.now();if(now-lastRefresh<1000)return;lastRefresh=now;
+    const oldScrollX=window.scrollX,oldScrollY=window.scrollY;
+    const oldType=type,oldCat=cat;
+    const ok=await loadFreshData();if(!ok)return;
+    type=oldType;cat=oldCat;
+    const arr=type==="food"?data.food:data.beverages;
+    if(cat!=="all"&&!arr.some(x=>x.available!==false&&x.category===cat))cat="all";
+    $("foodBtn").classList.toggle("active",type==="food");
+    $("drinkBtn").classList.toggle("active",type==="beverages");
+    renderChefSuggestion();renderCats();renderMenu();
+    requestAnimationFrame(()=>window.scrollTo({left:oldScrollX,top:oldScrollY,behavior:"instant"}));
   }
   window.addEventListener("focus",refreshFromServer);
   document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")refreshFromServer()});
