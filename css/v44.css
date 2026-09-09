@@ -1,0 +1,29 @@
+/* V44 - barra sticky de categorias */
+#menuArea .category-strip{
+  position:sticky;
+  top:0;
+  z-index:850;
+  margin:0 -15px 20px;
+  padding:12px 15px;
+  background:rgba(243,237,228,.96);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(223,213,198,.9);
+  box-shadow:0 7px 18px rgba(30,22,14,.06);
+  overflow-x:auto;
+  overflow-y:hidden;
+  scrollbar-width:none;
+  white-space:nowrap;
+}
+#menuArea .category-strip::-webkit-scrollbar{display:none}
+#menuArea .category-strip .cat-btn{flex:0 0 auto}
+@media(max-width:700px){
+  #menuArea .category-strip{
+    margin:0 -15px 16px;
+    padding:10px 15px;
+  }
+  #menuArea .category-strip .cat-btn{
+    padding:9px 13px;
+    font-size:13px;
+  }
+}
