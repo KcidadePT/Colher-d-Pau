@@ -15,22 +15,27 @@
     </div>
     <div class="admin-actions">
       <a class="btn light" href="index.html">Ver site</a>
-      <button class="btn light" id="reset">Repor original</button>
-      <button class="btn gold" id="export">Exportar data.js</button>
-      <button class="btn primary" id="save">Guardar neste navegador</button>
+      
+      
+      <button class="btn primary" id="save">Guardar</button>
     </div>
   </div>
 
-  <div class="admin-note">
-    <strong>Como funciona:</strong>
-    clique numa linha para editar. A ficha abre numa janela sobre a tabela.
-    As linhas alteradas ficam destacadas até exportar/repor os dados.
-  </div>
+  
 
   <div class="admin-tabs">
     <button class="admin-tab active" data-type="food">Comida</button>
     <button class="admin-tab" data-type="beverages">Bebidas</button>
 <button class="admin-tab" data-type="chef">Sugestão do Chefe</button>
+  </div>
+
+  <div class="admin-search-tools" role="search" aria-label="Pesquisar na carta">
+    <div class="admin-search-box">
+      <span class="admin-search-icon" aria-hidden="true">⌕</span>
+      <input id="adminSearch" type="search" autocomplete="off" placeholder="Procurar por nome, ID, categoria ou região…" aria-label="Procurar itens">
+      <button id="clearAdminSearch" class="admin-search-clear" type="button" aria-label="Limpar pesquisa" title="Limpar pesquisa">×</button>
+    </div>
+    <div class="admin-search-result" id="adminSearchResult" aria-live="polite"></div>
   </div>
 
   
@@ -108,7 +113,7 @@
             <input id="imageUpload" type="file" accept="image/*">
             <button class="btn light" id="clearUploadedImage" type="button">Limpar seleção</button>
           </div>
-          <small class="field-help">A imagem é otimizada automaticamente e fica guardada com o prato.</small>
+          <small class="field-help">A imagem é otimizada automaticamente. Ao selecionar um ficheiro, o campo acima é atualizado para assets/dishes/nome-da-fotografia.jpg.</small>
         </div>
 
         <div class="field full">

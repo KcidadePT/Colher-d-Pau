@@ -2,6 +2,8 @@
 let data=JSON.parse(localStorage.getItem("colherdpau_menu_data")||JSON.stringify(window.MENU_DATA));
 let currentIndex=0;
 let currentType="food";
+let pendingUploadedImageData=null;
+let adminSearchTerm="";
 const edited={food:new Set(),beverages:new Set(),chef:new Set()};
 const $=id=>document.getElementById(id);
 
@@ -51,6 +53,23 @@ function renderHead(){
   }
 }
 
+function normalizeSearchText(value){
+  return String(value??"")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .toLowerCase()
+    .trim();
+}
+
+function searchableText(x){
+  const names=x?.name&&typeof x.name==="object"?Object.values(x.name):[x?.name];
+  const descriptions=x?.description&&typeof x.description==="object"?Object.values(x.description):[x?.description];
+  return normalizeSearchText([
+    x?.code,x?.id,x?.type,x?.category,categoryLabel(x?.category),x?.region,
+    ...names,...descriptions,...(x?.tags||[]),...(x?.allergens||[])
+  ].filter(Boolean).join(" "));
+}
+
 function renderRows(){
   renderHead();
   let arr;
@@ -58,7 +77,22 @@ function renderRows(){
   else if(currentType==="beverages") arr=data.beverages;
   else arr=(data.chefSuggestion?.items||[]);
 
-  $("rows").innerHTML=arr.map((x,i)=>{
+  const term=normalizeSearchText(adminSearchTerm);
+  const visible=arr.map((x,i)=>({x,i})).filter(({x})=>!term||searchableText(x).includes(term));
+
+  const result=$("adminSearchResult");
+  if(result){
+    result.textContent=term
+      ? `${visible.length} resultado${visible.length===1?"":"s"} de ${arr.length}`
+      : `${arr.length} item${arr.length===1?"":"s"}`;
+  }
+
+  if(!visible.length){
+    $("rows").innerHTML=`<tr><td colspan="6" class="admin-no-results">Nenhum item encontrado para “${adminSearchTerm.replace(/[<>&"']/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;","\"":"&quot;","'":"&#39;"}[c]))}”.</td></tr>`;
+    return;
+  }
+
+  $("rows").innerHTML=visible.map(({x,i})=>{
     const changed=edited[currentType].has(i)?" edited-row":"";
     if(currentType==="food"){
       return `<tr class="${changed}" data-i="${i}">
@@ -87,7 +121,7 @@ function renderRows(){
     </tr>`;
   }).join("");
 
-  document.querySelectorAll("#rows tr").forEach(r=>{
+  document.querySelectorAll("#rows tr[data-i]").forEach(r=>{
     r.onclick=()=>openEditor(+r.dataset.i);
   });
 }
@@ -162,6 +196,7 @@ function openEditor(i){
   }
 
   $("imageUpload").value="";
+  pendingUploadedImageData=x.imageData||null;
   preview();
   $("editorModal").classList.add("open");
   $("editorModal").setAttribute("aria-hidden","false");
@@ -175,11 +210,26 @@ function closeEditor(){
 }
 
 function preview(){
-  $("preview").src=$("image").value || (currentType==="beverages"?"assets/drink-placeholder.svg":"assets/dish-placeholder.svg");
+  // Se foi escolhida uma fotografia neste editor, usa os dados da imagem
+  // para a pré-visualização. O campo "Fotografia" mantém um caminho legível.
+  $("preview").src=pendingUploadedImageData || $("image").value || (currentType==="beverages"?"assets/drink-placeholder.svg":"assets/dish-placeholder.svg");
   $("preview").onerror=()=>{$("preview").src=currentType==="beverages"?"assets/drink-placeholder.svg":"assets/dish-placeholder.svg"};
 }
 
-$("image").oninput=preview;
+$("image").oninput=()=>{
+  pendingUploadedImageData=null;
+  preview();
+};
+
+function safeImageFileName(fileName){
+  const raw=(fileName||"fotografia").replace(/\.[^.]+$/,"");
+  const safe=raw
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .toLowerCase()
+    .replace(/[^a-z0-9_-]+/g,"-")
+    .replace(/^-+|-+$/g,"") || "fotografia";
+  return safe+".jpg";
+}
 
 async function fileToOptimizedDataUrl(file){
   if(!file) return null;
@@ -220,7 +270,8 @@ $("imageUpload").onchange=async()=>{
   if(!file) return;
   try{
     const optimized=await fileToOptimizedDataUrl(file);
-    $("image").value=optimized;
+    pendingUploadedImageData=optimized;
+    $("image").value="assets/dishes/"+safeImageFileName(file.name);
     preview();
   }catch(err){
     alert(err.message||"Não foi possível carregar a imagem.");
@@ -231,6 +282,7 @@ $("imageUpload").onchange=async()=>{
 $("clearUploadedImage").onclick=()=>{
   $("imageUpload").value="";
   $("image").value="";
+  pendingUploadedImageData=null;
   preview();
 };
 
@@ -243,6 +295,11 @@ $("apply").onclick=()=>{
 
   x.available=$("available").checked;
   x.image=$("image").value;
+  if(pendingUploadedImageData){
+    x.imageData=pendingUploadedImageData;
+  }else{
+    delete x.imageData;
+  }
 
   if(currentType==="food"){
     x.category=$("category").value;
@@ -345,5 +402,32 @@ $("addChefItem").onclick=()=>{
 };
 
 refreshChefSettings();
+const adminSearch=$("adminSearch");
+const clearAdminSearch=$("clearAdminSearch");
+if(adminSearch){
+  adminSearch.addEventListener("input",()=>{
+    adminSearchTerm=adminSearch.value;
+    clearAdminSearch?.classList.toggle("is-visible",!!adminSearchTerm);
+    renderRows();
+  });
+  adminSearch.addEventListener("keydown",e=>{
+    if(e.key==="Escape"&&adminSearch.value){
+      adminSearch.value="";
+      adminSearchTerm="";
+      clearAdminSearch?.classList.remove("is-visible");
+      renderRows();
+    }
+  });
+}
+if(clearAdminSearch){
+  clearAdminSearch.addEventListener("click",()=>{
+    adminSearch.value="";
+    adminSearchTerm="";
+    clearAdminSearch.classList.remove("is-visible");
+    renderRows();
+    adminSearch.focus();
+  });
+}
+
 renderRows();
 })();

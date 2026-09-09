@@ -106,7 +106,7 @@
       const name=item.name?.[lang]||item.name?.pt||"";
       const desc=item.description?.[lang]||item.description?.pt||"";
       const itemType=typeLabels[item.type]?.[lang]||item.type||"";
-      const image=item.image||"assets/dish-placeholder.svg";
+      const image=item.imageData||item.image||"assets/dish-placeholder.svg";
 
       return `<article class="chef-card">
         <div class="chef-card-header">
@@ -160,7 +160,7 @@
         if(type==="food"){
           const name=x.name?.[lang]||x.name?.pt||"";
           const desc=x.description?.[lang]||x.description?.pt||"";
-          const image=x.image||"assets/dish-placeholder.svg";
+          const image=x.imageData||x.image||"assets/dish-placeholder.svg";
           return `<article class="dish">
             <img class="dish-image zoomable" src="${image}"
                  onerror="this.onerror=null;this.src='assets/dish-placeholder.svg'"
