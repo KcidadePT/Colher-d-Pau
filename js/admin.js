@@ -353,27 +353,6 @@ $("save").onclick=()=>{
   alert("Alterações guardadas neste navegador.");
 };
 
-$("reset").onclick=()=>{
-  if(confirm("Repor os dados originais?")){
-    localStorage.removeItem("colherdpau_menu_data");
-    data=JSON.parse(JSON.stringify(window.MENU_DATA));
-    edited.food.clear();
-    edited.beverages.clear();
-    edited.chef.clear();
-    renderRows();
-  }
-};
-
-$("export").onclick=()=>{
-  const blob=new Blob(["window.MENU_DATA = "+JSON.stringify(data,null,2)+";\n"],{type:"text/javascript"});
-  const a=document.createElement("a");
-  a.href=URL.createObjectURL(blob);
-  a.download="data.js";
-  a.click();
-  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
-};
-
-
 function refreshChefSettings(){
   const isChef=currentType==="chef";
   $("chefAdminSettings").hidden=!isChef;
@@ -402,6 +381,7 @@ $("addChefItem").onclick=()=>{
 };
 
 refreshChefSettings();
+renderRows();
 const adminSearch=$("adminSearch");
 const clearAdminSearch=$("clearAdminSearch");
 if(adminSearch){
@@ -429,5 +409,4 @@ if(clearAdminSearch){
   });
 }
 
-renderRows();
 })();
