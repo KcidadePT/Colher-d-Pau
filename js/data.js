@@ -901,7 +901,7 @@ window.MENU_DATA = {
     {
       "name": "Solar das Bouças Escolha",
       "category": "wine_green_white",
-      "bottle": 15.5,
+      "bottle": 15.8,
       "glass": null,
       "region": "Minho",
       "available": true,
