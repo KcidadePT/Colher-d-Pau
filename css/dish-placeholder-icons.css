@@ -1,0 +1,21 @@
+.dish img.smart-dish-placeholder,
+.chef-image.smart-dish-placeholder{
+  object-fit:cover;
+  background:#f5eee4;
+}
+
+.dish img.smart-dish-placeholder{
+  border:1px solid rgba(154,116,64,.18);
+}
+
+.chef-image.smart-dish-placeholder{
+  border:1px solid rgba(154,116,64,.18);
+}
+
+@media (max-width:700px){
+  .dish img.smart-dish-placeholder{
+    aspect-ratio:1/1;
+    width:84px;
+    height:84px;
+  }
+}
