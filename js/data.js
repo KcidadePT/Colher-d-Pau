@@ -694,7 +694,7 @@ window.MENU_DATA = {
         "it": "",
         "ru": ""
       },
-      "image": "assets/dishes/025.jpg",
+      "image": "assets/dishes/folhado-de-pato-1789076713510.jpg",
       "allergens": [],
       "tags": [],
       "available": true,
