@@ -554,7 +554,7 @@ window.MENU_DATA = {
         "it": "",
         "ru": ""
       },
-      "image": "assets/dishes/020.jpg",
+      "image": "assets/dishes/bacalho-a-braga-1789065711249.jpg",
       "allergens": [],
       "tags": [],
       "available": true,
