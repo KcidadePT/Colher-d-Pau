@@ -1,9 +1,10 @@
 (()=>{
   "use strict";
 
+  const lang=(new URLSearchParams(location.search).get("lang")||document.documentElement.lang||"pt").toLowerCase();
   const translations={
     "CHEF-ENTRADA":{
-      name:{en:"Minho-style sarrabulho porridge",fr:"Papas de sarrabulho du Minho",es:"Papas de sarrabulho al estilo del Miño",de:"Sarrabulho nach Minho-Art",it:"Papas de sarrabulho alla maniera del Minho",ru:"Папаш де саррабулью по-миньотски"},
+      name:{en:"Minho-style sarrabulho porridge",fr:"Papas de sarrabulho du Minho",es:"Papas de sarrabulho al estilo del Miño",de:"Sarrabulho nach Minho-Art",it:"Papas de sarrabulho alla maniera del Minho",ru:"Папас де саррабулью по-миньотски"},
       description:{en:"A classic from Minho cuisine, full of tradition and flavour.",fr:"Un classique de la cuisine du Minho, riche en tradition et en saveurs.",es:"Un clásico de la cocina del Miño, lleno de tradición y sabor.",de:"Ein Klassiker der Küche des Minho, voller Tradition und Geschmack.",it:"Un classico della cucina del Minho, ricco di tradizione e sapore.",ru:"Классическое блюдо кухни Минью, наполненное традициями и вкусом."}
     },
     "CHEF-PEIXE":{
@@ -16,7 +17,7 @@
     }
   };
 
-  function apply(data){
+  function applyToData(data){
     const items=data?.chefSuggestion?.items;
     if(!Array.isArray(items))return data;
     for(const item of items){
@@ -24,13 +25,48 @@
       if(!t)continue;
       item.name=item.name||{};
       item.description=item.description||{};
-      for(const [lang,value] of Object.entries(t.name)) if(!item.name[lang]) item.name[lang]=value;
-      for(const [lang,value] of Object.entries(t.description)) if(!item.description[lang]) item.description[lang]=value;
+      for(const [code,value] of Object.entries(t.name)) if(!item.name[code]) item.name[code]=value;
+      for(const [code,value] of Object.entries(t.description)) if(!item.description[code]) item.description[code]=value;
     }
     return data;
   }
 
-  if(window.MENU_DATA)apply(window.MENU_DATA);
+  function applyToDom(){
+    if(lang==="pt")return;
+    document.querySelectorAll("#chefGrid .chef-card[data-key]").forEach(card=>{
+      const key=card.dataset.key||"";
+      const id=Object.keys(translations).find(candidate=>key.includes(candidate));
+      if(!id)return;
+      const t=translations[id];
+      const name=t.name[lang];
+      const description=t.description[lang];
+      const title=card.querySelector("h3");
+      const desc=card.querySelector(".chef-card-body p");
+      const image=card.querySelector("img.zoomable");
+      if(title&&name)title.textContent=name;
+      if(desc&&description)desc.textContent=description;
+      if(image&&name){image.alt=name;image.dataset.caption=name;}
+    });
+  }
+
+  function fitTitle(){
+    if(innerWidth>600)return;
+    const row=document.querySelector("#chefSuggestion .chef-title-row");
+    const main=document.getElementById("chefTitleMain");
+    const script=document.getElementById("chefTitleScript");
+    if(!row||!main||!script)return;
+    let size=30;
+    main.style.setProperty("font-size",size+"px","important");
+    script.style.setProperty("font-size",size+"px","important");
+    while(row.scrollWidth>row.clientWidth&&size>14){
+      size--;
+      main.style.setProperty("font-size",size+"px","important");
+      script.style.setProperty("font-size",size+"px","important");
+    }
+  }
+
+  function refreshUi(){applyToDom();fitTitle();}
+  if(window.MENU_DATA)applyToData(window.MENU_DATA);
 
   const originalFetch=window.fetch.bind(window);
   window.fetch=async(...args)=>{
@@ -39,12 +75,21 @@
     if(!url.includes("/menu-data"))return response;
     try{
       const payload=await response.clone().json();
-      if(payload?.data)apply(payload.data);
-      return new Response(JSON.stringify(payload),{
-        status:response.status,
-        statusText:response.statusText,
-        headers:response.headers
-      });
+      if(payload?.data)applyToData(payload.data);
+      return new Response(JSON.stringify(payload),{status:response.status,statusText:response.statusText,headers:response.headers});
     }catch{return response;}
   };
+
+  let scheduled=false;
+  const schedule=()=>{
+    if(scheduled)return;
+    scheduled=true;
+    requestAnimationFrame(()=>{scheduled=false;refreshUi();});
+  };
+  const chef=document.getElementById("chefSuggestion")||document.body;
+  new MutationObserver(schedule).observe(chef,{childList:true,subtree:true,characterData:true});
+  addEventListener("resize",schedule,{passive:true});
+  addEventListener("load",schedule);
+  document.addEventListener("DOMContentLoaded",schedule);
+  schedule();
 })();
