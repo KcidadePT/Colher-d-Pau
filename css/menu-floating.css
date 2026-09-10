@@ -1,4 +1,4 @@
-/* V60: barra flutuante + layout mobile + familias de bebidas + swipe sugestoes */
+/* V63: barra flutuante + layout mobile + familias de bebidas + swipe sugestoes */
 #categoryStrip { display:none !important; }
 #menuArea { padding-top:24px; }
 #menuContent { padding-top:0; min-width:0; max-width:100%; }
@@ -55,12 +55,10 @@ html,body{max-width:100%;overflow-x:clip;}
   .drink-family-head h2{font-size:23px;}
   .drink-family-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
   .drink-family-card{min-height:106px;border-radius:15px;padding:14px 10px;font-size:13.5px;gap:8px;}
-  .drink-family-card .drink-family-icon{font-size:27px;}
+  .drink-family-card .drink-family-icon{font-size:27px;line-height:1;}
   .drink-family-card:last-child:nth-child(odd){grid-column:1/-1;min-height:88px;}
 
   #chefSuggestion .chef-panel{overflow:visible;}
-  #chefSuggestion .chef-title-row{display:flex!important;flex-wrap:nowrap!important;align-items:baseline!important;justify-content:center!important;white-space:nowrap!important;overflow:hidden!important;}
-  #chefSuggestion .chef-title-main,#chefSuggestion .chef-title-script{white-space:nowrap!important;flex:0 0 auto!important;}
   #chefSuggestion .chef-grid{
     display:flex!important;grid-template-columns:none!important;gap:14px;overflow-x:auto;overflow-y:hidden;
     scroll-snap-type:x mandatory;scroll-padding-left:0;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;
