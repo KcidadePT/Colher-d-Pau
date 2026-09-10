@@ -3,13 +3,13 @@
   const $=id=>document.getElementById(id);
   let currentType="food";
   let currentIndex=0;
-  let data=JSON.parse(JSON.stringify(window.MENU_DATA));
 
   const SESSION_EDITS_KEY="colherdpau_session_edited";
   const ACTIVE_TYPE_KEY="colherdpau_active_type";
   const INTERNAL_RELOAD_KEY="colherdpau_internal_reload";
 
   function auth(){return window.COLHERDPAU_GET_AUTH?.()||{apiUrl:"",token:""};}
+  function currentData(){return window.MENU_DATA||{food:[],beverages:[],chefSuggestion:{items:[]}};}
   function rememberEditedItem(type,index){
     let state={food:[],beverages:[],chef:[]};
     try{state={...state,...JSON.parse(sessionStorage.getItem(SESSION_EDITS_KEY)||"{}")} }catch{}
@@ -28,7 +28,7 @@
   function safeImageFileName(name){
     const raw=(name||"fotografia").replace(/\.[^.]+$/,"");
     const safe=raw.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9_-]+/g,"-").replace(/^-+|-+$/g,"")||"fotografia";
-    return safe+".jpg";
+    return safe+"-"+Date.now()+".jpg";
   }
   async function fileToOptimizedDataUrl(file){
     if(!file)return null;
@@ -39,9 +39,10 @@
     const canvas=document.createElement("canvas");canvas.width=w;canvas.height=h;canvas.getContext("2d").drawImage(img,0,0,w,h);
     return canvas.toDataURL("image/jpeg",0.86);
   }
-  function applyFields(){
+  function applyFields(data){
     const arr=currentType==="food"?data.food:currentType==="beverages"?data.beverages:data.chefSuggestion.items;
     const x=arr[currentIndex];
+    if(!x)throw new Error("Não foi possível localizar o item a editar.");
     x.available=$("available").checked;x.image=$("image").value.trim();
     if(currentType==="food"){
       x.category=$("category").value;x.code=$("code").value.trim();x.name=x.name||{};x.name.pt=$("name_pt").value.trim();x.description=x.description||{};x.description.pt=$("desc_pt").value.trim();x.price=parseFloat($("price").value)||0;x.allergens=$("allergens").value.split(",").map(s=>s.trim()).filter(Boolean);x.tags=$("tags").value.split(",").map(s=>s.trim()).filter(Boolean);x.featured=$("featured").checked;
@@ -75,15 +76,21 @@
       if(!session.apiUrl||!session.token){setPublish("Sessão GitHub inválida. Volte a iniciar sessão.","error");return;}
       const old=apply.textContent;apply.disabled=true;apply.textContent="A publicar…";setPublish("A publicar no GitHub…","busy");
       try{
-        const item=applyFields();let image=null;const file=$("imageUpload").files?.[0];
-        if(file){const optimized=await fileToOptimizedDataUrl(file);const path="assets/dishes/"+safeImageFileName(file.name);$("image").value=path;item.image=path;item.imageData=optimized;image={path,base64:optimized.split(",")[1]};}
+        const data=currentData();
+        const item=applyFields(data);let image=null;const file=$("imageUpload").files?.[0];
+        if(file){
+          const optimized=await fileToOptimizedDataUrl(file);
+          const path="assets/dishes/"+safeImageFileName(file.name);
+          $("image").value=path;item.image=path;image={path,base64:optimized.split(",")[1]};
+        }
         const payload={data:cleanDataForPublish(data),image};
         const res=await fetch(session.apiUrl+"/publish",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+session.token},body:JSON.stringify(payload)});
         const body=await res.json().catch(()=>({}));
         if(res.status===401){window.COLHERDPAU_LOGOUT?.();return;}
         if(!res.ok||!body.ok)throw new Error(body.error||"Não foi possível publicar.");
         setPublish("Publicado no GitHub.","ok");setStatus("GitHub sincronizado","connected");
-        rememberEditedItem(currentType,currentIndex);sessionStorage.setItem(INTERNAL_RELOAD_KEY,"1");sessionStorage.setItem(ACTIVE_TYPE_KEY,currentType);setTimeout(()=>location.reload(),350);
+        rememberEditedItem(currentType,currentIndex);sessionStorage.setItem(INTERNAL_RELOAD_KEY,"1");sessionStorage.setItem(ACTIVE_TYPE_KEY,currentType);
+        setTimeout(()=>location.href=location.pathname+"?v="+Date.now(),500);
       }catch(e){setPublish(e.message||"Não foi possível publicar no GitHub.","error");setStatus("Erro de sincronização","error");}
       finally{apply.disabled=false;apply.textContent=old;}
     };
