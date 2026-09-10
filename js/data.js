@@ -498,7 +498,7 @@ window.MENU_DATA = {
         "it": "",
         "ru": ""
       },
-      "image": "assets/dishes/018.jpg",
+      "image": "assets/dishes/folhado-de-camarao-1789077160210.jpg",
       "allergens": [],
       "tags": [],
       "available": true,
