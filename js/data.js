@@ -386,7 +386,7 @@ window.MENU_DATA = {
         "it": "",
         "ru": ""
       },
-      "image": "assets/dishes/014.jpg",
+      "image": "assets/dishes/tabua-colher-dpau-1789065003494.jpg",
       "allergens": [],
       "tags": [],
       "available": true,
