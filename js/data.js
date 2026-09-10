@@ -1668,7 +1668,7 @@ window.MENU_DATA = {
           "ru": ""
         },
         "price": 6,
-        "image": "assets/chef/papas-sarrabulho.jpg",
+        "image": "assets/dishes/papas-de-sarrabulho-1789062204921.jpg",
         "available": true
       },
       {
