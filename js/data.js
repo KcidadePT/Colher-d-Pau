@@ -302,7 +302,7 @@ window.MENU_DATA = {
         "it": "",
         "ru": ""
       },
-      "image": "assets/dishes/011.jpg",
+      "image": "assets/dishes/entradas_saladagraodebico-1789053488227.jpg",
       "allergens": [],
       "tags": [],
       "available": true,
