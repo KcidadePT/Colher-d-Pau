@@ -1693,7 +1693,7 @@ window.MENU_DATA = {
           "ru": ""
         },
         "price": 14,
-        "image": "assets/chef/bacalhau-broa-grelos.jpg",
+        "image": "assets/dishes/bacalhau-lascado-1789062502094.jpg",
         "available": true
       },
       {
