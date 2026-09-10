@@ -49,23 +49,6 @@
     });
   }
 
-  function fitTitle(){
-    if(innerWidth>600)return;
-    const row=document.querySelector("#chefSuggestion .chef-title-row");
-    const main=document.getElementById("chefTitleMain");
-    const script=document.getElementById("chefTitleScript");
-    if(!row||!main||!script)return;
-    let size=30;
-    main.style.setProperty("font-size",size+"px","important");
-    script.style.setProperty("font-size",size+"px","important");
-    while(row.scrollWidth>row.clientWidth&&size>14){
-      size--;
-      main.style.setProperty("font-size",size+"px","important");
-      script.style.setProperty("font-size",size+"px","important");
-    }
-  }
-
-  function refreshUi(){applyToDom();fitTitle();}
   if(window.MENU_DATA)applyToData(window.MENU_DATA);
 
   const originalFetch=window.fetch.bind(window);
@@ -84,11 +67,10 @@
   const schedule=()=>{
     if(scheduled)return;
     scheduled=true;
-    requestAnimationFrame(()=>{scheduled=false;refreshUi();});
+    requestAnimationFrame(()=>{scheduled=false;applyToDom();});
   };
   const chef=document.getElementById("chefSuggestion")||document.body;
   new MutationObserver(schedule).observe(chef,{childList:true,subtree:true,characterData:true});
-  addEventListener("resize",schedule,{passive:true});
   addEventListener("load",schedule);
   document.addEventListener("DOMContentLoaded",schedule);
   schedule();
