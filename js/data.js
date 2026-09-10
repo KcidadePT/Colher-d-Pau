@@ -22,7 +22,7 @@ window.MENU_DATA = {
         "it": "",
         "ru": ""
       },
-      "image": "assets/dishes/001.jpg",
+      "image": "assets/dishes/pao-dalho-1789064446358.jpg",
       "allergens": [],
       "tags": [],
       "available": true,
