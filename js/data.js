@@ -50,7 +50,7 @@ window.MENU_DATA = {
         "it": "",
         "ru": ""
       },
-      "image": "assets/dishes/002.jpg",
+      "image": "assets/dishes/couvert-1789065352483.jpg",
       "allergens": [],
       "tags": [],
       "available": true,
