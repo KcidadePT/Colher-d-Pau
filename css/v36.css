@@ -4,9 +4,9 @@
 @media(max-width:600px){
   .chef-suggestion{margin:18px auto 28px!important}
   .chef-panel{padding:16px 10px 14px!important;border-radius:18px!important}
-  .chef-panel-head{margin-bottom:14px!important}
-  .chef-title-row{gap:5px!important;padding-top:0!important;flex-wrap:nowrap!important;white-space:nowrap!important}
-  .chef-title-main,.chef-title-script{font-size:30px!important;white-space:nowrap!important}
+  .chef-panel-head{margin-bottom:14px!important;text-align:center!important}
+  .chef-title-row{gap:5px!important;padding-top:0!important;flex-wrap:nowrap!important;white-space:nowrap!important;justify-content:center!important;width:100%!important;text-align:center!important}
+  .chef-title-main,.chef-title-script{font-size:30px!important;white-space:nowrap!important;text-align:center!important}
   html[lang="en"] .chef-title-main,html[lang="en"] .chef-title-script{font-size:27px!important}
   html[lang="fr"] .chef-title-main,html[lang="fr"] .chef-title-script{font-size:26px!important}
   html[lang="es"] .chef-title-main,html[lang="es"] .chef-title-script{font-size:25px!important}
@@ -23,10 +23,11 @@
   .chef-image{height:165px!important}
   .chef-image-wrap{min-height:0!important}
   .chef-price{
+    bottom:8px!important;
     padding:7px 10px!important;
-    border:1px solid #e3d3bc!important;
+    border:1px solid rgba(227,211,188,.78)!important;
     border-radius:12px!important;
-    background:#f4eadb!important;
+    background:rgba(244,234,219,.78)!important;
     color:#181410!important;
     font-size:18px!important;
     line-height:1.1!important;
