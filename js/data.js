@@ -246,7 +246,7 @@ window.MENU_DATA = {
         "it": "",
         "ru": ""
       },
-      "image": "assets/dishes/entradas_saladafeijaofrade-1789050337089.jpg",
+      "image": "assets/dishes/entradas_saladafeijaofrade-1789050374377.jpg",
       "allergens": [],
       "tags": [],
       "available": true,
