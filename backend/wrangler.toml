@@ -1,6 +1,7 @@
 name = "colher-d-pau-admin-api"
 main = "worker.js"
 compatibility_date = "2026-09-09"
+keep_vars = true
 
 # Secrets a definir no Cloudflare Worker:
 # GITHUB_TOKEN                -> token GitHub com Contents: Read and write apenas neste repositorio
