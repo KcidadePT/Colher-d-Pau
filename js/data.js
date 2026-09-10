@@ -638,7 +638,7 @@ window.MENU_DATA = {
         "it": "",
         "ru": ""
       },
-      "image": "assets/dishes/023.jpg",
+      "image": "assets/dishes/arroz-de-tamboril-1789064973448.jpg",
       "allergens": [],
       "tags": [],
       "available": true,
