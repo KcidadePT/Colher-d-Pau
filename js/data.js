@@ -134,7 +134,7 @@ window.MENU_DATA = {
         "it": "",
         "ru": ""
       },
-      "image": "",
+      "image": "assets/dishes/entrada_pimentospadron-1789059555765.jpg",
       "allergens": [],
       "tags": [],
       "available": true,
