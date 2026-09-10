@@ -806,7 +806,7 @@ window.MENU_DATA = {
         "it": "",
         "ru": ""
       },
-      "image": "assets/dishes/029.jpg",
+      "image": "assets/dishes/posta-colher-dpau-1789076008429.jpg",
       "allergens": [],
       "tags": [],
       "available": true,
