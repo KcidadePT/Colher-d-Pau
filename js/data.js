@@ -358,7 +358,7 @@ window.MENU_DATA = {
         "it": "",
         "ru": ""
       },
-      "image": "assets/dishes/013.jpg",
+      "image": "assets/dishes/punheta-de-bacalhau-1789064989938.jpg",
       "allergens": [],
       "tags": [],
       "available": true,
