@@ -27,7 +27,7 @@
           title.parentNode.insertBefore(badge,title);
         }
         const code=String(item.code??item.id??"").trim();
-        badge.textContent=code?`ID ${code}`:"";
+        badge.textContent=code;
         badge.hidden=!code;
       });
     });
