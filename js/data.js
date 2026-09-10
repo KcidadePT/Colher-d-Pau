@@ -106,7 +106,7 @@ window.MENU_DATA = {
         "it": "",
         "ru": ""
       },
-      "image": "assets/dishes/004.jpg",
+      "image": "assets/dishes/orelha-de-porco-1789064211251.jpg",
       "allergens": [],
       "tags": [],
       "available": true,
