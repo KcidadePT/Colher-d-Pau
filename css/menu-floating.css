@@ -1,4 +1,4 @@
-/* V53: barra flutuante + layout mobile + familias de bebidas */
+/* V58: barra flutuante + layout mobile + familias de bebidas + swipe sugestoes */
 #categoryStrip { display:none !important; }
 #menuArea { padding-top:24px; }
 #menuContent { padding-top:0; min-width:0; max-width:100%; }
@@ -60,6 +60,40 @@ html,body{max-width:100%;overflow-x:clip;}
   .drink-family-card{min-height:106px;border-radius:15px;padding:14px 10px;font-size:13.5px;gap:8px;}
   .drink-family-card .drink-family-icon{font-size:27px;}
   .drink-family-card:last-child:nth-child(odd){grid-column:1/-1;min-height:88px;}
+
+  /* Sugestao do Chefe: carrossel horizontal por swipe */
+  #chefSuggestion .chef-panel{overflow:visible;}
+  #chefSuggestion .chef-grid{
+    display:flex!important;
+    grid-template-columns:none!important;
+    gap:14px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scroll-snap-type:x mandatory;
+    scroll-padding-left:0;
+    overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    padding:2px 14% 8px 0;
+  }
+  #chefSuggestion .chef-grid::-webkit-scrollbar{display:none;}
+  #chefSuggestion .chef-card{
+    flex:0 0 86%;
+    width:86%;
+    min-width:0;
+    scroll-snap-align:start;
+    scroll-snap-stop:always;
+  }
+  #chefSuggestion .chef-panel:has(.chef-card + .chef-card)::after{
+    content:"Deslize para ver mais  →";
+    display:block;
+    margin:8px 0 0;
+    text-align:center;
+    font:650 12px/1.2 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+    letter-spacing:.02em;
+    color:#8a6b45;
+    opacity:.9;
+  }
 
   #floatingCategoryBar {top:calc(8px + env(safe-area-inset-top, 0px));left:8px;right:8px;width:auto;max-width:none;padding:5px;gap:2px;transform:translateY(-12px);border-radius:18px;}
   #floatingCategoryBar.is-visible {transform:translateY(0);}
