@@ -722,7 +722,7 @@ window.MENU_DATA = {
         "it": "",
         "ru": ""
       },
-      "image": "assets/dishes/026.jpg",
+      "image": "assets/dishes/arroz-de-pato-1789063935485.jpg",
       "allergens": [],
       "tags": [],
       "available": true,
