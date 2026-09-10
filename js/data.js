@@ -1718,7 +1718,7 @@ window.MENU_DATA = {
           "ru": ""
         },
         "price": 15,
-        "image": "assets/chef/picanha-broa.jpg",
+        "image": "assets/dishes/picanha-com-broa-1789063179889.jpg",
         "available": true
       }
     ]
