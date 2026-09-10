@@ -4,15 +4,9 @@
 @media(max-width:600px){
   .chef-suggestion{margin:18px auto 28px!important}
   .chef-panel{padding:16px 10px 14px!important;border-radius:18px!important}
-  .chef-panel-head{margin-bottom:14px!important;text-align:center!important}
-  .chef-title-row{gap:5px!important;padding-top:0!important;flex-wrap:nowrap!important;white-space:nowrap!important;justify-content:center!important;width:100%!important;text-align:center!important}
-  .chef-title-main,.chef-title-script{font-size:30px!important;white-space:nowrap!important;text-align:center!important}
-  html[lang="en"] .chef-title-main,html[lang="en"] .chef-title-script{font-size:27px!important}
-  html[lang="fr"] .chef-title-main,html[lang="fr"] .chef-title-script{font-size:26px!important}
-  html[lang="es"] .chef-title-main,html[lang="es"] .chef-title-script{font-size:25px!important}
-  html[lang="de"] .chef-title-main,html[lang="de"] .chef-title-script{font-size:21px!important}
-  html[lang="it"] .chef-title-main,html[lang="it"] .chef-title-script{font-size:24px!important}
-  html[lang="ru"] .chef-title-main,html[lang="ru"] .chef-title-script{font-size:20px!important}
+  .chef-panel-head{margin-bottom:14px!important}
+  .chef-title-row{gap:5px!important;padding-top:0!important}
+  .chef-title-main,.chef-title-script{font-size:30px!important}
   .chef-title-rule{margin:8px auto 10px!important}
   .chef-title-rule span{max-width:58px!important}
   .chef-grid{gap:10px!important}
@@ -40,12 +34,6 @@
 
 @media(max-width:380px){
   .chef-title-main,.chef-title-script{font-size:27px!important}
-  html[lang="en"] .chef-title-main,html[lang="en"] .chef-title-script{font-size:24px!important}
-  html[lang="fr"] .chef-title-main,html[lang="fr"] .chef-title-script{font-size:23px!important}
-  html[lang="es"] .chef-title-main,html[lang="es"] .chef-title-script{font-size:22px!important}
-  html[lang="de"] .chef-title-main,html[lang="de"] .chef-title-script{font-size:18px!important}
-  html[lang="it"] .chef-title-main,html[lang="it"] .chef-title-script{font-size:21px!important}
-  html[lang="ru"] .chef-title-main,html[lang="ru"] .chef-title-script{font-size:17px!important}
   .chef-image{height:150px!important}
   .chef-card-header h3,.chef-card h3{font-size:18px!important}
 }
