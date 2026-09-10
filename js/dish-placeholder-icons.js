@@ -4,13 +4,13 @@
   const FOOD_FALLBACK = "assets/dish-placeholder.svg";
 
   const icons = {
-    fish:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 32c9-13 23-18 36-4l8-8v24l-8-8C35 50 21 45 12 32Z"/><circle cx="36" cy="28" r="2.4" fill="currentColor" stroke="none"/><path d="M12 32 5 24v16l7-8Z"/></svg>',
-    meat:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M18 18c8-8 20-7 27 0 6 6 7 17 1 23-8 8-22 9-30 1-7-7-5-18 2-24Z"/><circle cx="37" cy="27" r="6"/><path d="M42 42l9 9m-1-6 5 5m-10 0 5 5"/></svg>',
-    veggie:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M52 10C29 11 15 24 16 43c18 2 32-10 36-33Z"/><path d="M17 47c9-12 18-20 31-29M29 33c-1-6 0-11 2-16m4 10c6 0 11 1 15 3"/></svg>',
-    dessert:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M14 47h36L43 22H21l-7 25Z"/><path d="M18 34h28M25 22c0-7 5-11 12-11 4 0 8 2 10 5"/><circle cx="43" cy="14" r="4" fill="currentColor" stroke="none"/></svg>',
-    starters:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 42h44M15 42c2-14 10-22 17-22s15 8 17 22M32 20v-6M27 14h10"/><path d="M18 49h28"/></svg>',
-    couvert:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 44h44M16 44c0-10 7-18 16-18s16 8 16 18"/><path d="M21 31c2-9 8-15 17-16 5 5 7 10 6 16M26 22l-4-8m10 5-1-10m8 12 4-7"/></svg>',
-    generic:'<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="22"/><path d="M17 38c5-6 10-9 15-9s10 3 15 9M22 23h20"/></svg>'
+    fish:'<path d="M103 120c19-25 45-36 74-22l28-20v84l-28-20c-29 14-55 3-74-22Z"/><circle cx="168" cy="111" r="5" fill="#9a7440" stroke="none"/><path d="M103 120 82 101v38l21-19Z"/>',
+    meat:'<path d="M116 91c20-19 55-16 74 3 17 17 18 45 1 62-20 20-56 22-78 1-20-19-17-48 3-66Z"/><circle cx="169" cy="118" r="15"/><path d="M186 155l21 21m-2-15 12 12m-23 0 12 12"/>',
+    veggie:'<path d="M207 73c-58 3-93 35-90 83 45 5 79-25 90-83Z"/><path d="M120 165c21-30 43-49 78-72M150 129c-3-16 0-29 5-42m11 27c15 0 28 3 39 8"/>',
+    dessert:'<path d="M111 161h98l-19-69h-60l-19 69Z"/><path d="M121 126h79M143 92c0-20 14-32 34-32 12 0 23 5 29 14"/><circle cx="195" cy="66" r="9" fill="#9a7440" stroke="none"/>',
+    starters:'<path d="M98 151h124M111 151c5-39 27-61 49-61s44 22 49 61M160 90V72M147 72h26"/><path d="M119 169h82"/>',
+    couvert:'<path d="M96 156h128M111 156c1-34 22-58 51-58 28 0 49 24 50 58"/><path d="M126 111c7-27 27-45 57-49 17 18 22 37 19 56M143 83l-11-22m35 13-2-28m24 36 12-20"/>',
+    generic:'<circle cx="160" cy="119" r="61"/><path d="M120 135c13-17 26-25 40-25s27 8 40 25M132 91h56"/>'
   };
 
   const byCategory = {
@@ -24,8 +24,7 @@
 
   function placeholderSvg(kind){
     const icon = icons[kind] || icons.generic;
-    const label = ({fish:"Peixe",meat:"Carne",veggie:"Vegetariano",dessert:"Sobremesa",starters:"Entrada",couvert:"Couvert"})[kind] || "Prato";
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240"><rect width="320" height="240" rx="28" fill="#f5eee4"/><circle cx="160" cy="104" r="58" fill="#fffaf4" stroke="#d9c7ab" stroke-width="2"/><g transform="translate(128 72)" fill="none" stroke="#9a7440" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">${icon}</g><text x="160" y="190" text-anchor="middle" font-family="Georgia,serif" font-size="18" fill="#6f6254">${label}</text></svg>`;
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240"><rect width="320" height="240" rx="24" fill="#f5eee4"/><circle cx="160" cy="120" r="78" fill="#fffaf4" stroke="#d9c7ab" stroke-width="2"/><g fill="none" stroke="#9a7440" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">${icon}</g></svg>`;
   }
 
   function asDataUri(svg){
@@ -41,6 +40,7 @@
   function categoryFor(img){
     const section = img.closest(".section[data-category]");
     if(section) return section.dataset.category || "";
+
     const chef = img.closest(".chef-card");
     if(chef){
       const t=(chef.querySelector(".chef-type")?.textContent||"").toLowerCase();
@@ -51,18 +51,15 @@
     return "";
   }
 
-  function isFoodFallback(img){
-    const src=img.getAttribute("src")||"";
-    const fallback=img.dataset.fallback||"";
-    return src.endsWith(FOOD_FALLBACK) || fallback.endsWith(FOOD_FALLBACK);
+  function isActualFoodFallback(img){
+    const src=(img.getAttribute("src")||"").split("?")[0].split("#")[0];
+    return src.endsWith(FOOD_FALLBACK);
   }
 
   function upgrade(img){
-    if(!(img instanceof HTMLImageElement) || !isFoodFallback(img)) return;
-    const category=categoryFor(img);
-    const kind=byCategory[category]||"generic";
+    if(!(img instanceof HTMLImageElement) || !isActualFoodFallback(img)) return;
+    const kind=byCategory[categoryFor(img)]||"generic";
     const uri=getPlaceholder(kind);
-    if(img.src===uri) return;
     img.src=uri;
     img.dataset.full=uri;
     img.dataset.smartPlaceholder=kind;
@@ -70,11 +67,15 @@
   }
 
   function scan(root=document){
-    root.querySelectorAll?.('img[data-fallback="assets/dish-placeholder.svg"], img[src$="assets/dish-placeholder.svg"]').forEach(upgrade);
+    root.querySelectorAll?.("img").forEach(upgrade);
   }
 
   const observer=new MutationObserver(mutations=>{
     for(const mutation of mutations){
+      if(mutation.type==="attributes"){
+        upgrade(mutation.target);
+        continue;
+      }
       mutation.addedNodes.forEach(node=>{
         if(node.nodeType!==1) return;
         if(node.matches?.("img")) upgrade(node);
@@ -85,13 +86,7 @@
 
   function start(){
     scan();
-    observer.observe(document.body,{childList:true,subtree:true});
-    document.addEventListener("error",event=>{
-      const img=event.target;
-      if(img instanceof HTMLImageElement && (img.dataset.fallback||"").endsWith(FOOD_FALLBACK)){
-        requestAnimationFrame(()=>upgrade(img));
-      }
-    },true);
+    observer.observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:["src"]});
   }
 
   if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",start,{once:true});
