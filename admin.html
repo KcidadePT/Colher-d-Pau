@@ -4,19 +4,38 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Gestão · Colher d’Pau</title>
-  <link rel="stylesheet" href="css/style.css?v=41">
-  <link rel="stylesheet" href="css/v36.css?v=41">
+  <link rel="stylesheet" href="css/style.css?v=53">
+  <link rel="stylesheet" href="css/v36.css?v=53">
+  <style>
+    .admin-auth-gate{min-height:72vh;display:grid;place-items:center;padding:48px 20px}
+    .admin-auth-card{width:min(520px,100%);background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:22px;padding:34px;box-shadow:0 20px 60px rgba(0,0,0,.08);text-align:center}
+    .admin-auth-card h1{margin:.25rem 0 .5rem}
+    .admin-auth-card p{color:#666;line-height:1.55}
+    .github-login-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-top:18px;min-width:230px}
+    .admin-auth-error{margin-top:16px;color:#a32626;font-size:.92rem}
+    [hidden]{display:none!important}
+  </style>
 </head>
 <body>
-<div class="admin-wrap shell">
+<div class="admin-auth-gate" id="adminAuthGate">
+  <section class="admin-auth-card" aria-labelledby="adminAuthTitle">
+    <div class="eyebrow">Backoffice</div>
+    <h1 id="adminAuthTitle">Gestão da carta</h1>
+    <p>Para editar e publicar a carta é necessário iniciar sessão com uma conta GitHub autorizada.</p>
+    <button class="btn primary github-login-btn" id="githubLoginBtn" type="button">Entrar com GitHub</button>
+    <div class="admin-auth-error" id="adminAuthError" aria-live="polite"></div>
+  </section>
+</div>
+
+<div class="admin-wrap shell" id="adminApp" hidden>
   <div class="admin-head">
     <div>
       <div class="eyebrow">Backoffice</div>
       <h1>Gestão da carta</h1>
     </div>
     <div class="admin-actions">
-      <div class="github-sync-status" id="githubSyncStatus">Gravação local ativa</div>
-      <button class="btn light" id="connectGitHub" type="button">Configurar publicação</button>
+      <div class="github-sync-status connected" id="githubSyncStatus">GitHub ligado</div>
+      <button class="btn light" id="connectGitHub" type="button">Terminar sessão</button>
       <a class="btn light" href="index.html">Ver site</a>
     </div>
   </div>
@@ -78,10 +97,10 @@
   </section>
 </div>
 
-<script src="js/data.js?v=41"></script>
-<script src="js/local-data-bridge.js?v=41"></script>
-<script src="js/admin.js?v=41"></script>
-<script src="js/admin-session.js?v=41"></script>
-<script src="js/admin-backend.js?v=41"></script>
+<script src="js/data.js?v=53"></script>
+<script src="js/admin-auth.js?v=53"></script>
+<script src="js/admin.js?v=53"></script>
+<script src="js/admin-session.js?v=53"></script>
+<script src="js/admin-backend.js?v=53"></script>
 </body>
 </html>
