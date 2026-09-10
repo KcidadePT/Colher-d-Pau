@@ -10,12 +10,15 @@
   function apply(){
     document.querySelectorAll('.drink-family-card[data-family]').forEach(card=>{
       const slot=card.querySelector('.drink-family-icon');
-      const icon=icons[card.dataset.family];
-      if(slot&&icon&&slot.innerHTML!==icon)slot.innerHTML=icon;
+      const family=card.dataset.family;
+      const icon=icons[family];
+      if(!slot||!icon||slot.dataset.iconApplied===family)return;
+      slot.innerHTML=icon;
+      slot.dataset.iconApplied=family;
     });
   }
   const target=document.getElementById('drinkFamilyNav');
-  if(target){new MutationObserver(apply).observe(target,{childList:true,subtree:true});}
+  if(target)new MutationObserver(apply).observe(target,{childList:true,subtree:true});
   document.addEventListener('DOMContentLoaded',apply);
   apply();
 })();
