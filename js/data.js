@@ -330,7 +330,7 @@ window.MENU_DATA = {
         "it": "",
         "ru": ""
       },
-      "image": "assets/dishes/entradas---setas-ao-cardo2.jpg",
+      "image": "assets/dishes/entradas_setas_ao_cardo.jpg",
       "allergens": [],
       "tags": [],
       "available": true,
