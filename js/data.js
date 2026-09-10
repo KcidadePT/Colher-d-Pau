@@ -218,7 +218,7 @@ window.MENU_DATA = {
         "it": "",
         "ru": ""
       },
-      "image": "assets/dishes/008.jpg",
+      "image": "assets/dishes/entrada_cogumelossalteados-1789057059237.jpg",
       "allergens": [],
       "tags": [],
       "available": true,
