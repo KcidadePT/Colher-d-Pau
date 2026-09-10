@@ -190,7 +190,7 @@ window.MENU_DATA = {
         "it": "",
         "ru": ""
       },
-      "image": "assets/dishes/007.jpg",
+      "image": "assets/dishes/brie-1789065726849.jpg",
       "allergens": [],
       "tags": [],
       "available": true,
