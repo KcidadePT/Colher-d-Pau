@@ -274,7 +274,7 @@ window.MENU_DATA = {
         "it": "",
         "ru": ""
       },
-      "image": "assets/dishes/010.jpg",
+      "image": "assets/dishes/polvo-com-molho-verde-1789064461623.jpg",
       "allergens": [],
       "tags": [],
       "available": true,
