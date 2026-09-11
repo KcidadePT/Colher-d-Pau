@@ -2,10 +2,10 @@
   "use strict";
 
   const API_URL="https://colherdpau-admin-api.joao-c-veloso93.workers.dev";
-  const TOKEN_KEY="colherdpau_github_session";
+  const TOKEN_KEY="colherdpau_google_session";
   const gate=document.getElementById("adminAuthGate");
   const app=document.getElementById("adminApp");
-  const loginBtn=document.getElementById("githubLoginBtn");
+  const loginBtn=document.getElementById("googleLoginBtn");
   const errorEl=document.getElementById("adminAuthError");
 
   function token(){return sessionStorage.getItem(TOKEN_KEY)||"";}
