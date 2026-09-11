@@ -4,7 +4,7 @@
   const FOOD_FALLBACK = "assets/dish-placeholder.svg";
 
   const icons = {
-    fish:'<path d="M103 120c19-25 45-36 74-22l28-20v84l-28-20c-29 14-55 3-74-22Z"/><circle cx="168" cy="111" r="5" fill="#9a7440" stroke="none"/><path d="M103 120 82 101v38l21-19Z"/>',
+    fish:'<path d="M111 120c21-24 45-36 72-36 24 0 45 12 64 36-19 24-40 36-64 36-27 0-51-12-72-36Z"/><path d="M111 120 82 98v44l29-22Z"/><circle cx="203" cy="112" r="5" fill="#9a7440" stroke="none"/>',
     meat:'<path d="M116 91c20-19 55-16 74 3 17 17 18 45 1 62-20 20-56 22-78 1-20-19-17-48 3-66Z"/><circle cx="169" cy="118" r="15"/><path d="M186 155l21 21m-2-15 12 12m-23 0 12 12"/>',
     veggie:'<path d="M207 73c-58 3-93 35-90 83 45 5 79-25 90-83Z"/><path d="M120 165c21-30 43-49 78-72M150 129c-3-16 0-29 5-42m11 27c15 0 28 3 39 8"/>',
     dessert:'<path d="M111 161h98l-19-69h-60l-19 69Z"/><path d="M121 126h79M143 92c0-20 14-32 34-32 12 0 23 5 29 14"/><circle cx="195" cy="66" r="9" fill="#9a7440" stroke="none"/>',
