@@ -3,12 +3,12 @@ main = "worker.js"
 compatibility_date = "2026-09-09"
 keep_vars = true
 
-# Secrets a definir no Cloudflare Worker:
-# GITHUB_TOKEN                -> token GitHub com Contents: Read and write apenas neste repositorio
-# GITHUB_OAUTH_CLIENT_ID      -> Client ID da GitHub OAuth App
-# GITHUB_OAUTH_CLIENT_SECRET  -> Client Secret da GitHub OAuth App
-# SESSION_SECRET              -> segredo longo e aleatorio para assinar sessoes
-# GITHUB_ALLOWED_USERS        -> utilizadores GitHub autorizados, separados por virgulas (ex.: KcidadePT)
+# Secrets / variaveis a definir no Cloudflare Worker:
+# GITHUB_TOKEN          -> token GitHub com Contents: Read and write apenas neste repositorio
+# GOOGLE_CLIENT_ID      -> Client ID da aplicacao OAuth 2.0 no Google Cloud
+# GOOGLE_CLIENT_SECRET  -> Client Secret da aplicacao OAuth 2.0 no Google Cloud
+# GOOGLE_ALLOWED_EMAILS -> emails Google autorizados, separados por virgulas
+# SESSION_SECRET        -> segredo longo e aleatorio para assinar sessoes
 #
 # Variavel publica recomendada:
 # ALLOWED_ORIGIN -> https://kcidadept.github.io
