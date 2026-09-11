@@ -93,8 +93,11 @@ function callbackUrl(request) {
   return url.origin + "/auth/callback";
 }
 
-function authorizedUsers(env) {
-  return String(env.GITHUB_ALLOWED_USERS || OWNER).split(",").map(v => v.trim().toLowerCase()).filter(Boolean);
+function authorizedEmails(env) {
+  return String(env.GOOGLE_ALLOWED_EMAILS || "")
+    .split(",")
+    .map(v => v.trim().toLowerCase())
+    .filter(Boolean);
 }
 
 async function createState(returnTo, env) {
@@ -106,7 +109,7 @@ async function readSession(request, env) {
   const match = header.match(/^Bearer\s+(.+)$/i);
   if (!match || !env.SESSION_SECRET) return null;
   const session = await readSignedToken(match[1], env.SESSION_SECRET);
-  if (!session?.login || !authorizedUsers(env).includes(String(session.login).toLowerCase())) return null;
+  if (!session?.email || !authorizedEmails(env).includes(String(session.email).toLowerCase())) return null;
   return session;
 }
 
@@ -173,13 +176,17 @@ export default {
     const url = new URL(request.url);
 
     if (request.method === "GET" && url.pathname === "/auth/login") {
-      if (!env.GITHUB_OAUTH_CLIENT_ID || !env.GITHUB_OAUTH_CLIENT_SECRET || !env.SESSION_SECRET) return json({ ok: false, error: "OAuth GitHub ainda não configurado." }, 500, {}, env);
+      if (!env.GOOGLE_CLIENT_ID || !env.GOOGLE_CLIENT_SECRET || !env.SESSION_SECRET || !authorizedEmails(env).length) {
+        return json({ ok: false, error: "OAuth Google ainda não configurado." }, 500, {}, env);
+      }
       const state = await createState(url.searchParams.get("return_to"), env);
-      const authorize = new URL("https://github.com/login/oauth/authorize");
-      authorize.searchParams.set("client_id", env.GITHUB_OAUTH_CLIENT_ID);
+      const authorize = new URL("https://accounts.google.com/o/oauth2/v2/auth");
+      authorize.searchParams.set("client_id", env.GOOGLE_CLIENT_ID);
       authorize.searchParams.set("redirect_uri", callbackUrl(request));
-      authorize.searchParams.set("scope", "read:user");
+      authorize.searchParams.set("response_type", "code");
+      authorize.searchParams.set("scope", "openid email profile");
       authorize.searchParams.set("state", state);
+      authorize.searchParams.set("prompt", "select_account");
       return Response.redirect(authorize.toString(), 302);
     }
 
@@ -188,22 +195,38 @@ export default {
         const state = await readSignedToken(url.searchParams.get("state"), env.SESSION_SECRET);
         if (!state?.returnTo) throw new Error("Estado de autenticação inválido.");
         const code = url.searchParams.get("code");
-        if (!code) throw new Error("O GitHub não devolveu um código de autenticação.");
+        if (!code) throw new Error("O Google não devolveu um código de autenticação.");
 
-        const tokenRes = await fetch("https://github.com/login/oauth/access_token", {
+        const tokenRes = await fetch("https://oauth2.googleapis.com/token", {
           method: "POST",
-          headers: { "Accept": "application/json", "Content-Type": "application/json" },
-          body: JSON.stringify({ client_id: env.GITHUB_OAUTH_CLIENT_ID, client_secret: env.GITHUB_OAUTH_CLIENT_SECRET, code, redirect_uri: callbackUrl(request) })
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({
+            client_id: env.GOOGLE_CLIENT_ID,
+            client_secret: env.GOOGLE_CLIENT_SECRET,
+            code,
+            grant_type: "authorization_code",
+            redirect_uri: callbackUrl(request)
+          })
         });
         const tokenBody = await tokenRes.json();
-        if (!tokenRes.ok || !tokenBody.access_token) throw new Error(tokenBody.error_description || "Falha no login GitHub.");
+        if (!tokenRes.ok || !tokenBody.access_token) throw new Error(tokenBody.error_description || "Falha no login Google.");
 
-        const userRes = await fetch("https://api.github.com/user", { headers: { "Accept": "application/vnd.github+json", "Authorization": `Bearer ${tokenBody.access_token}`, "User-Agent": "colher-d-pau-admin-worker" } });
+        const userRes = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+          headers: { "Authorization": `Bearer ${tokenBody.access_token}` },
+          cache: "no-store"
+        });
         const user = await userRes.json();
-        if (!userRes.ok || !user.login) throw new Error("Não foi possível identificar a conta GitHub.");
-        if (!authorizedUsers(env).includes(String(user.login).toLowerCase())) throw new Error("Esta conta GitHub não está autorizada a gerir a carta.");
+        if (!userRes.ok || !user.email) throw new Error("Não foi possível identificar a conta Google.");
+        if (user.email_verified === false) throw new Error("O email desta conta Google não está verificado.");
+        const email = String(user.email).toLowerCase();
+        if (!authorizedEmails(env).includes(email)) throw new Error("Esta conta Google não está autorizada a gerir a carta.");
 
-        const sessionToken = await makeSignedToken({ login: user.login, name: user.name || user.login, avatar: user.avatar_url || "", exp: Date.now() + 8 * 60 * 60 * 1000 }, env.SESSION_SECRET);
+        const sessionToken = await makeSignedToken({
+          email,
+          name: user.name || email,
+          avatar: user.picture || "",
+          exp: Date.now() + 8 * 60 * 60 * 1000
+        }, env.SESSION_SECRET);
         return Response.redirect(state.returnTo + "#auth_token=" + encodeURIComponent(sessionToken), 302);
       } catch (error) {
         const fallback = safeReturnTo(null, env);
@@ -214,7 +237,7 @@ export default {
     if (request.method === "GET" && url.pathname === "/auth/me") {
       const session = await readSession(request, env);
       if (!session) return json({ ok: false, error: "Sessão inválida ou expirada." }, 401, {}, env);
-      return json({ ok: true, user: { login: session.login, name: session.name, avatar: session.avatar } }, 200, {}, env);
+      return json({ ok: true, user: { email: session.email, login: session.email, name: session.name, avatar: session.avatar } }, 200, {}, env);
     }
 
     if (request.method === "GET" && url.pathname === "/menu-data") {
@@ -245,7 +268,7 @@ export default {
 
       const clean = cleanData(payload.data);
       const dataFile = `window.MENU_DATA = ${JSON.stringify(clean, null, 2)};\n`;
-      await putFile(DATA_PATH, encodeUtf8Base64(dataFile), `Atualizar carta pelo backoffice (${session.login})`, env);
+      await putFile(DATA_PATH, encodeUtf8Base64(dataFile), `Atualizar carta pelo backoffice (${session.email})`, env);
       return json({ ok: true }, 200, {}, env);
     } catch (error) {
       return json({ ok: false, error: error?.message || "Erro interno." }, 500, {}, env);
