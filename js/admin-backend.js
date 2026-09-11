@@ -73,7 +73,7 @@
   if(apply){
     apply.onclick=async()=>{
       const session=auth();
-      if(!session.apiUrl||!session.token){setPublish("Sessão GitHub inválida. Volte a iniciar sessão.","error");return;}
+      if(!session.apiUrl||!session.token){setPublish("Sessão inválida. Volte a iniciar sessão com Google.","error");return;}
       const old=apply.textContent;apply.disabled=true;apply.textContent="A publicar…";setPublish("A publicar no GitHub…","busy");
       try{
         const data=currentData();
