@@ -24,9 +24,8 @@
 
   function placeholderSvg(kind){
     const icon = icons[kind] || icons.generic;
-    const circle = kind === "dessert"
-      ? ""
-      : '<circle cx="160" cy="120" r="78" fill="#fffaf4" stroke="#d9c7ab" stroke-width="2"/>';
+    const circleRadius = kind === "dessert" ? 86 : 78;
+    const circle = `<circle cx="160" cy="120" r="${circleRadius}" fill="#fffaf4" stroke="#d9c7ab" stroke-width="2"/>`;
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240"><rect width="320" height="240" rx="24" fill="#f5eee4"/>${circle}<g fill="none" stroke="#9a7440" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">${icon}</g></svg>`;
   }
 
